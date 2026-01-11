@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display, Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { auth } from "@/lib/auth";
+import { Providers } from "./providers";
+import { AuthSession } from "@/types/user-logged";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ["latin"],
@@ -13,17 +17,16 @@ export const metadata: Metadata = {
   description: "Gerencie seus clientes e gere orçamentos personalizados.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+  const userLogged = await auth();
+
   return (
-    <html lang="pt-br" className={inter.variable}>
-      <body
-        className={`${redHatDisplay.className} antialiased`}
-      >
-        {children}
+    <html lang="pt-br" suppressHydrationWarning className={inter.variable}>
+      <body className={`${redHatDisplay.className} antialiased`}>
+        <Providers initialUser={userLogged as AuthSession}>
+          <Toaster richColors position="top-center" />
+          {children}
+        </Providers>
       </body>
     </html>
   );

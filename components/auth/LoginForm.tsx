@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { manageAuth } from "@/actions/auth";
 
 export default function LoginForm() {
     return (
@@ -11,7 +14,7 @@ export default function LoginForm() {
                 <CardDescription className="text-md">Faça login com o Google e tenha o controle total dos seus clientes e orçamentos.</CardDescription>
             </CardHeader>
             <CardContent>
-                <form className="grid gap-4">
+                <form action={manageAuth} className="grid gap-4">
                     <Button variant="outline" size="lg">
                         <Image src="/google_logo.png" alt="Google" width="16" height="16" />
                         Entrar com o Google
