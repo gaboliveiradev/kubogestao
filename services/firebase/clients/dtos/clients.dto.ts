@@ -23,6 +23,8 @@ export type ClientDTO = {
     responsible_phone?: string;
     billing_phone?: string;
 
+    budget_key?: string;
+
     created_at: string; // ISO
     updated_at: string; // ISO
 };

@@ -64,6 +64,8 @@ class ClientsService extends FirestoreBaseService<Client> {
       responsible_phone: data.responsible_phone,
       billing_phone: data.billing_phone,
 
+      budget_key: data.budget_key,
+
       created_at: data.created_at?.toDate().toISOString(),
       updated_at: data.updated_at?.toDate().toISOString(),
     };

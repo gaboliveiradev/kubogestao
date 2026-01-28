@@ -23,6 +23,8 @@ export type Client = {
     responsible_phone?: string;
     billing_phone?: string;
 
+    budget_key?: string;
+
     created_at: FirebaseFirestore.Timestamp;
     updated_at: FirebaseFirestore.Timestamp;
 }

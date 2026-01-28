@@ -148,7 +148,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         />
                     </div>
                 </div>
-                <div className='lg:col-span-7 col-span-12'>
+                <div className='lg:col-span-4 col-span-12'>
                     <Label htmlFor="responsible_name">Nome Responsável</Label>
                     <div className="mt-1">
                         <Input
@@ -159,10 +159,21 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         />
                     </div>
                 </div>
+                <div className='lg:col-span-3 col-span-12'>
+                    <Label htmlFor="budget_key">Chave de Orçamento *</Label>
+                    <div className="mt-1">
+                        <Input
+                            name="budget_key"
+                            type='text'
+                            value={values.budget_key || ""}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
                 <div className="lg:col-span-12 col-span-12 w-full py-2">
                     <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full mb-6">
-                        <div className="w-full border-b">
+                        <div className="w-full border">
                             <TabsList className="inline-flex px-0 bg-transparent">
                                 <TabsTrigger value="address">
                                     <HugeiconsIcon icon={MapsLocation01Icon} />

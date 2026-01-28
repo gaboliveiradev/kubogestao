@@ -7,7 +7,7 @@ export function useZodFormState<T extends ZodObject<any>>(schema: T) {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function handleChange(
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | { name: string; value: any },
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | { name: string; value: any },
     transform?: (value: any) => any
   ) {
     const { name, value } = "target" in e ? e.target : e;

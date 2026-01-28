@@ -19,6 +19,8 @@ export interface UpsertClientDTO {
     customer_email?: string;
     billing_email?: string;
 
+    budget_key?: string;
+
     customer_phone?: string;
     responsible_phone?: string;
     billing_phone?: string;

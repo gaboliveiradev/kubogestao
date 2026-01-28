@@ -29,6 +29,8 @@ export const clientSchema = z.object({
 
   responsible_name: z.string().optional(),
 
+  budget_key: z.string().min(1, 'Chave de orçamento é obrigatório.').min(3, 'Chave de orçamento deve ter no mínimo 3 caracteres.'),
+
   // ===== Endereço =====
   zipcode: z
     .string()

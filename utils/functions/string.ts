@@ -100,3 +100,15 @@ export function formatDocument(value?: string | null): string {
         .replace(/(\d{4})(\d)/, "$1-$2")
         .slice(0, 18);
 }
+
+export function generateBudgetCode(budgetKey: string): string {
+    const digits = new Set<number>();
+
+    while (digits.size < 4) {
+        digits.add(Math.floor(Math.random() * 10));
+    }
+
+    const randomNumbers = Array.from(digits).join("");
+
+    return `${budgetKey}${randomNumbers}`;
+}

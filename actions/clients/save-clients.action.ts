@@ -5,10 +5,7 @@ import { clientSchema } from "@/schemas/clients.schema";
 import { clientsService } from "@/services/firebase/clients/clients.service";
 import { ServiceResponse } from "@/types/service-response";
 
-export async function upsertClient(
-  _: ServiceResponse,
-  formData: FormData
-): Promise<ServiceResponse<{ id: string }>> {
+export async function upsertClient(_: ServiceResponse,formData: FormData): Promise<ServiceResponse<{ id: string }>> {
   const userLogged = await auth();
 
   if (!userLogged?.user?.id) {
