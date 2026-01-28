@@ -42,6 +42,8 @@ import { InputPhone } from "@/components/form/InputPhone";
 import { getClientById } from "@/actions/clients/get-client-by-id.action";
 import { InputCEP } from "@/components/form/InputCEP";
 import { RichTextEditor } from "@/components/rich-text-editor/RichTextEditor";
+import { getBudgetById } from "@/actions/budgets/get-budget-by-id.action";
+import { getItemsByBudgetId } from "@/actions/budgets-items/get-items-by-budget-id";
 
 type TabValue = "clients" | "items" | "observations";
 
@@ -86,12 +88,50 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
 
                 if (res && res.data) setClients(res.data);
             } finally {
-                setLoader({ state: false, message: "" });
+                if (!id) setLoader({ state: false, message: "" });
             }
         }
 
         fetchClients();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        if (!id) return;
+
+        async function loadBudget(budgetId: string) {
+            try {
+                // 1. Carregar dados do orçamento
+                setLoader({ state: true, message: "Carregando dados do orçamento..." });
+
+                const resBudget = await getBudgetById(budgetId);
+
+                if (!resBudget.success || !resBudget.data) {
+                    showErrorSonner(resBudget.message);
+                    setLoader({ state: false, message: "" });
+                    return;
+                }
+
+                setValues(resBudget.data);
+
+                // 2. Carregar itens do orçamento
+                setLoader({ state: true, message: "Carregando itens do orçamento..." });
+
+                const resBudgetItems = await getItemsByBudgetId(budgetId);
+
+                if (!resBudgetItems.success || !resBudgetItems.data) {
+                    showErrorSonner(resBudgetItems.message);
+                    setLoader({ state: false, message: "" });
+                    return;
+                }
+
+                setItems(resBudgetItems.data);
+            } finally {
+                setLoader({ state: false, message: "" });
+            }
+        }
+
+        loadBudget(id);
+    }, [id, setValues]);
 
     function toggleItem(id: string) {
         setExpandedItemId(prev => (prev === id ? null : id))

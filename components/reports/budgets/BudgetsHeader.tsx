@@ -10,7 +10,7 @@ export function budgetHeader() {
       font-family: Arial, Helvetica, sans-serif;
     ">
       <!-- Left -->
-      <div>
+      <div style="width: 320px !important;.">
         <div style="
           font-size: 24px;
           font-weight: bold;

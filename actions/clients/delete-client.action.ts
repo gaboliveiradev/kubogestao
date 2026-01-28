@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import { clientsService } from "@/services/firebase/clients/clients.service";
+import { revalidatePath } from "next/cache";
 
 export async function deleteClient(id: string) {
     try {
@@ -16,9 +17,11 @@ export async function deleteClient(id: string) {
 
         await clientsService.deleteClient(id);
 
+        revalidatePath("/app/clients");
+
         return {
             success: true,
-            message: "Cliente removido com sucesso",
+            message: "Cliente excluído com sucesso!",
         };
     } catch (error) {
         console.error("Erro ao remover cliente:", error);

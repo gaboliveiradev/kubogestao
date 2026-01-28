@@ -8,6 +8,7 @@ import ClientFormModal from "./clients-form-modal"
 import DropdownAction from "@/components/table/DropdownAction"
 import { ClientDTO } from "@/services/firebase/clients/dtos/clients.dto"
 import { formatDocument, formatPhone } from "@/utils/functions/string"
+import { deleteClient } from "@/actions/clients/delete-client.action"
 
 export const ClientColumnsDesktop: ColumnDef<ClientDTO>[] = [
     {
@@ -94,7 +95,7 @@ export const ClientColumnsDesktop: ColumnDef<ClientDTO>[] = [
         id: 'actions',
         enableHiding: true,
         cell: ({ row }) => {
-            return <DropdownAction id={row.original.id || ''} formEdit={<ClientFormModal id={row.original.id} />} size="lg" />;
+            return <DropdownAction id={row.original.id || ''} formEdit={<ClientFormModal id={row.original.id} />} size="lg" onDelete={deleteClient} />;
         }
     }
 ]

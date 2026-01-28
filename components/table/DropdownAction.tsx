@@ -5,19 +5,33 @@ import React, { ReactNode } from "react"
 import { Separator } from "../ui/separator"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { PencilEdit02Icon, Trash, UnfoldMoreIcon } from "@hugeicons/core-free-icons"
+import { showErrorSonner, showSuccessSonner } from "@/utils/sonner"
 
 type Props = {
     id: string,
     formEdit?: React.ReactNode,
     menuItems?: ReactNode[] | [],
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'sm' | 'md' | 'lg',
+    onDelete?: (id: string) => Promise<{
+        success: boolean
+        message: string
+    }>
 }
 
-export default function DropdownAction({ id, formEdit, menuItems = [], size = 'sm' }: Props) {
+export default function DropdownAction({ id, formEdit, menuItems = [], size = 'sm', onDelete }: Props) {
     const { openModal } = useModalContext();
 
     const handleDelete = async (id: string) => {
-        console.log("Deletar item com ID:", id);
+        if (!onDelete) return;
+
+        const result = await onDelete(id);
+
+        if (!result.success) {
+            showErrorSonner(result.message);
+            return;
+        }
+
+        showSuccessSonner(result.message);
     }
 
     return (

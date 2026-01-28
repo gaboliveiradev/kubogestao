@@ -110,5 +110,5 @@ export function generateBudgetCode(budgetKey: string): string {
 
     const randomNumbers = Array.from(digits).join("");
 
-    return `${budgetKey}${randomNumbers}`;
+    return `${budgetKey}-${randomNumbers}`;
 }

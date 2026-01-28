@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="pt-br" suppressHydrationWarning className={inter.variable}>
       <body className={`${redHatDisplay.className} antialiased`}>
         <Providers initialUser={userLogged as AuthSession}>
-          <Toaster richColors position="top-center" />
+          <Toaster richColors position="bottom-right" />
           {children}
         </Providers>
       </body>

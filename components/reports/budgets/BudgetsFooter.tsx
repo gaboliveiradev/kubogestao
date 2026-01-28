@@ -2,7 +2,7 @@ export function budgetFooter(generatedAt: string) {
   return `
     <div style="
       width: 100%;
-      font-size: 16px;
+      font-size: 14px;
       padding: 0 20px;
       display: flex;
       justify-content: space-between;
@@ -14,7 +14,7 @@ export function budgetFooter(generatedAt: string) {
       </div>
 
       <div style="text-align: right;">
-        Gerado em: ${generatedAt}<br />
+        Data do Orçamento: ${generatedAt}<br />
         Página <span class="pageNumber"></span> de <span class="totalPages"></span>
       </div>
     </div>

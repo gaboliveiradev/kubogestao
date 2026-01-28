@@ -6,6 +6,7 @@ import { budgetHeader } from "@/components/reports/budgets/BudgetsHeader";
 import { budgetFooter } from "@/components/reports/budgets/BudgetsFooter";
 import { NextResponse } from "next/server";
 import { BudgetPDFContent } from "@/components/reports/budgets/BudgetPDFContent";
+import { budgetItemsService } from "@/services/firebase/budgets/budget-items.service";
 
 export async function GET(
   request: Request,
@@ -31,15 +32,20 @@ export async function GET(
   }
 
   const budget = await budgetsService.getBudgetById(id);
+  const budgetItems = await budgetItemsService.getItemsByBudgetId(id);
 
   if (!budget) {
     return NextResponse.json({ error: "Orçamento não encontrado" }, { status: 404 });
   }
 
+  if (!budgetItems) {
+    return NextResponse.json({ error: "Itens do orçamento não encontrado" }, { status: 404 });
+  }
+
   const html = `
     <html>
       <body>
-        ${BudgetPDFContent(budget)}
+        ${BudgetPDFContent(budget, budgetItems)}
       </body>
     </html>
   `;
@@ -68,7 +74,7 @@ export async function GET(
   return new NextResponse(Buffer.from(pdf), {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename=orcamento-${id}.pdf`,
+      "Content-Disposition": `inline; filename=OR_${budget.budget_key}.pdf`,
     },
   });
 }

@@ -1,7 +1,9 @@
 import { BudgetDTO } from "@/services/firebase/budgets/dtos/budgets.dto";
+import { BudgetItem } from "@/types/budget-item";
 import { formatCurrency, formatDocument, formatPhone } from "@/utils/functions/string";
 
-export function BudgetPDFContent(data: BudgetDTO) {
+export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItem[]) {
+  const budgetKey = data.budget_key;
 
   const document = formatDocument(data.client_document) || 'Sem documento';
   const clientName = data.client_name || 'Sem nome';
@@ -119,9 +121,22 @@ export function BudgetPDFContent(data: BudgetDTO) {
           font-size: 14px !important;
           padding: 0px 12px !important;
         }
+
+        .budgetKey {
+          background-color: #d3d3d3 !important;
+          padding: 10px !important;
+          text-align: center;
+          font-size: 16px !important;
+          font-weight: 600 !important;
+        }
     </style>
 
     <main>
+      <!-- Código do Orçamento -->
+      <section class="budgetKey">
+        ORÇAMENTO ${budgetKey}
+      </section>
+
       <!-- Dados do Cliente -->
       <section>
         <h2>Dados do Cliente</h2>
@@ -129,20 +144,20 @@ export function BudgetPDFContent(data: BudgetDTO) {
         <div class="box">
           <div class="row" style="grid-template-columns: 3fr 8fr;">
             ${info("CNPJ", document, true)}
-            ${info("Cliente", clientName)}
+            ${info("CLIENTE", clientName)}
           </div>
     
           <div class="row" style="grid-template-columns: 3fr 5fr 3fr;">
             ${info("A/C", responsible, true)}
-            ${info("Email", email, true)}
-            ${info("Tel.", phone)}
+            ${info("EMAIL", email, true)}
+            ${info("TEL.", phone)}
           </div>
     
           <div class="row" style="grid-template-columns: 2fr 4fr 2fr 3fr;">
             ${info("CEP", zipcode, true)}
-            ${info("End", address, true)}
+            ${info("END", address, true)}
             ${info("Nº", number, true)}
-            ${info("Cidade", cityState)}
+            ${info("CIDADE", cityState)}
           </div>
         </div>
       </section>
@@ -156,19 +171,21 @@ export function BudgetPDFContent(data: BudgetDTO) {
             <table>
               <thead>
                 <tr>
-                  <th style="width:30%">Nome</th>
-                  <th style="width:50%">Descrição</th>
-                  <th style="width:5%" class="text-center">Qtd</th>
-                  <th style="width:15%" class="text-right">Valor (R$)</th>
+                  <th style="width:30%">NOME</th>
+                  <th style="width:50%">DESCRIÇÃO</th>
+                  <th style="width:5%" class="text-center">QTD</th>
+                  <th style="width:15%" class="text-right">VALOR (R$)</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Encosto com costura 144R</td>
-                  <td>Molde em alumínio fundido com serpentina para aquecimento</td>
-                  <td class="text-center">1</td>
-                  <td class="text-right">4.500,00</td>
-                </tr>
+                ${budgetItems.map(item => `
+                  <tr>
+                    <td>${item.name}</td>
+                    <td>${item.description ?? ""}</td>
+                    <td class="text-center">${item.quantity}</td>
+                    <td class="text-right">${formatCurrency(item.value)}</td>
+                  </tr>
+                `).join("")}
               </tbody>
             </table>
     

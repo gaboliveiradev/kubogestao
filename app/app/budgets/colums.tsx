@@ -10,6 +10,7 @@ import BudgetsFormModal from "./budgets-form-modal"
 import { formatCurrency, formatDocument } from "@/utils/functions/string"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { generateBudgetPdfLink } from "@/actions/reports/generate-budge-pdf-link.action"
+import { deleteBudget } from "@/actions/budgets/delete-budget.action"
 
 export const BudgetsColumnsDesktop: ColumnDef<BudgetDTO>[] = [
     {
@@ -75,7 +76,7 @@ export const BudgetsColumnsDesktop: ColumnDef<BudgetDTO>[] = [
         id: 'actions',
         enableHiding: true,
         cell: ({ row }) => {
-            return <DropdownAction id={row.original.id || ''} formEdit={<BudgetsFormModal id={row.original.id} />} size="lg" menuItems={[
+            return <DropdownAction id={row.original.id || ''} formEdit={<BudgetsFormModal id={row.original.id} />} size="lg" onDelete={deleteBudget} menuItems={[
                 <DropdownMenuItem key={row.original.id} onClick={async () => {
                     const url = await generateBudgetPdfLink(row.original.id);
                     window.open(url, "_blank");
