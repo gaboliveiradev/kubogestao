@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 // import DropdownMenuProfile from "./dropdown-profile";
-import { ChartBubble02Icon, DashboardSquare02Icon, FolderLibraryIcon, Settings01Icon, UserGroup03Icon } from "@hugeicons/core-free-icons";
+import { DashboardSquare02Icon, FolderLibraryIcon, Settings01Icon, UserGroup03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, HugeiconsIconProps } from "@hugeicons/react";
 import DropdownMenuProfile from "@/components/layout/DropdownProfile";
 import SheetSystemConfig from "./SheetSystemConfig";
+import Image from "next/image";
 
 export type SidebarItemProps = {
     Icon: HugeiconsIconProps["icon"]
@@ -24,8 +25,8 @@ export function Sidebar() {
                 <nav className='flex flex-col items-center gap-2 px-2 py-2'>
                     <TooltipProvider>
                         <div className='flex h-10 w-10 text-primary  text-lg items-center justify-center md:text-base gap-2'>
-                            <HugeiconsIcon icon={ChartBubble02Icon} className='h-5 w-5 transition-all' />
-                            <span className='sr-only'>App Clior</span>
+                            <Image src='/favicon.png' alt="KuboGestao" width="30" height="30" />
+                            <span className='sr-only'>KuboGestao</span>
                         </div>
 
                         <SidebarDesktopItem Icon={DashboardSquare02Icon} title='Dashboard' path='/app' />

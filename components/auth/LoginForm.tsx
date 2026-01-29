@@ -10,7 +10,7 @@ export default function LoginForm() {
     return (
         <Card className="max-w-md w-full bg-transparent">
             <CardHeader>
-                <CardTitle className="text-3xl font-bold">Bem Vindo(a) a <span className="text-primary font-extrabold">Clior</span></CardTitle>
+                <CardTitle className="text-3xl font-bold">Bem Vindo(a) ao <span className="font-extrabold">Kubo<span className="text-primary">Gestao</span></span></CardTitle>
                 <CardDescription className="text-md">Faça login com o Google e tenha o controle total dos seus clientes e orçamentos.</CardDescription>
             </CardHeader>
             <CardContent>

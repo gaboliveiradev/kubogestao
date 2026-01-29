@@ -39,6 +39,8 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
 
     useEffect(() => {
         handleFormFeedback({ state })
+
+        console.log(state);
     }, [state]);
 
     useEffect(() => {

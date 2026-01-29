@@ -44,19 +44,22 @@ export function formatPhone(phone: string | null) {
 }
 
 export function formatCurrency(value: number | string | null) {
-    if (value === null || undefined) return '';
+    if (value === null || value === undefined) return '';
 
-    if (typeof value === "number") {
-        return `R$ ${value.toFixed(2).replace(".", ",")}`; // Arredonda e formata
+    if (typeof value === 'number') {
+        return value.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        });
     }
 
-    const numericValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
-    const formattedValue = (Number(numericValue) / 100).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-    });
+    const numericValue = value.replace(/\D/g, '');
+    const numberValue = Number(numericValue) / 100;
 
-    return formattedValue;
+    return numberValue.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+    });
 }
 
 export function parseCurrency(value: string | number | null | undefined): number | null {

@@ -10,7 +10,7 @@ export function budgetFooter(generatedAt: string) {
     ">
       <div>
         <br>
-        <span style="font-size: 14px;">Orçamento gerado por <b>AppClior</b> @2026</span>
+        <span style="font-size: 14px;">Orçamento gerado por <b>KuboGestao</b> @2026</span>
       </div>
 
       <div style="text-align: right;">

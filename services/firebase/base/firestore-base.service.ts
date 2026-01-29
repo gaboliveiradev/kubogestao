@@ -23,15 +23,21 @@ export class FirestoreBaseService<T> {
         const ref = id ? this.collection().doc(id) : this.collection().doc();
         const now = Timestamp.now();
 
-        await ref.set(
-            {
-                ...data,
-                id: ref.id,
-                updated_at: now,
-                created_at: id ? undefined : now,
-            },
-            { merge: true }
-        );
+        const payload: Partial<T> & {
+            id: string;
+            updated_at: Timestamp;
+            created_at?: Timestamp;
+        } = {
+            ...data,
+            id: ref.id,
+            updated_at: now,
+        };
+
+        if (!id) {
+            payload.created_at = now;
+        }
+
+        await ref.set(payload, { merge: true });
 
         return { id: ref.id };
     }

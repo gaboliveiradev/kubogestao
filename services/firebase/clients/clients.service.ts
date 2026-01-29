@@ -8,6 +8,15 @@ class ClientsService extends FirestoreBaseService<Client> {
     super("clients");
   }
 
+  async countClients(userId: string): Promise<number> {
+    const snapshot = await this.collection()
+      .where("user_id", "==", userId)
+      .count()
+      .get();
+
+    return snapshot.data().count;
+  }
+
   async saveClients(data: UpsertClientDTO): Promise<{ id: string }> {
     return super.upsert(data.id, data);
   }

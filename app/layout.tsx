@@ -13,8 +13,11 @@ const redHatDisplay = Red_Hat_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Clior App",
+  title: "KuboGestao - Gestão de Clientes e Orçamentos",
   description: "Gerencie seus clientes e gere orçamentos personalizados.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {

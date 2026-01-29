@@ -68,12 +68,14 @@ export const clientSchema = z.object({
   customer_email: z
     .string()
     .email("E-mail inválido.")
-    .optional(),
+    .optional()
+    .or(z.literal('')),
 
   billing_email: z
     .string()
     .email("E-mail inválido.")
-    .optional(),
+    .optional()
+    .or(z.literal('')),
 
   customer_phone: z
     .string()

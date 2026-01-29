@@ -8,6 +8,15 @@ class BudgetsService extends FirestoreBaseService<Budget> {
         super("budgets");
     }
 
+    async countBudgets(userId: string): Promise<number> {
+        const snapshot = await this.collection()
+            .where("user_id", "==", userId)
+            .count()
+            .get();
+
+        return snapshot.data().count;
+    }
+
     async saveBudget(data: UpsertBudgetDTO): Promise<{ id: string }> {
         return super.upsert(data.id, data);
     }
