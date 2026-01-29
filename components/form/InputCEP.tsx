@@ -38,14 +38,12 @@ export function InputCEP({
     maskRef.current.on("accept", () => {
       if (!onChange || !inputRef.current) return
 
-      const event = {
+      onChange({
         target: {
           name,
           value: maskRef.current?.value ?? "",
         },
-      } as React.ChangeEvent<HTMLInputElement>
-
-      onChange(event)
+      } as React.ChangeEvent<HTMLInputElement>)
     })
 
     return () => {
@@ -69,6 +67,8 @@ export function InputCEP({
       name={name}
       id={id}
       placeholder={placeholder || "CEP"}
+      value={value || ""}
+      onChange={() => { }}
       onBlur={onBlur}
     />
   )

@@ -54,15 +54,14 @@ export function InputDocument({
     maskRef.current.on("accept", () => {
       if (!onChange || !inputRef.current) return
 
-      const event = {
+      onChange({
         target: {
           name,
           value: maskRef.current?.value ?? "",
         },
-      } as React.ChangeEvent<HTMLInputElement>
-
-      onChange(event)
+      } as React.ChangeEvent<HTMLInputElement>)
     })
+
 
     return () => {
       maskRef.current?.destroy()
@@ -85,6 +84,8 @@ export function InputDocument({
       name={name}
       id={id}
       placeholder={placeholder || "CPF ou CNPJ"}
+      value={value || ""}
+      onChange={() => { }}
       onBlur={onBlur}
     />
   )
