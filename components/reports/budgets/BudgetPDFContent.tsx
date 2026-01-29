@@ -1,8 +1,8 @@
+import { BudgetItemDTO } from "@/services/firebase/budgets/dtos/budget-items.dto";
 import { BudgetDTO } from "@/services/firebase/budgets/dtos/budgets.dto";
-import { BudgetItem } from "@/types/budget-item";
 import { formatCurrency, formatDocument, formatPhone } from "@/utils/functions/string";
 
-export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItem[]) {
+export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) {
   const budgetKey = data.budget_key;
 
   const document = formatDocument(data.client_document) || 'Sem documento';
@@ -18,7 +18,7 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItem[]) {
 
   const totalService = formatCurrency(data.total || 0);
 
-  const observation = data.observations || 'Sem observações';
+  const observation = data.observations;
 
   return `
     <style>
@@ -195,15 +195,19 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItem[]) {
       </section>
     
       <!-- Observações -->
-      <section>
-        <h2>Observações</h2>
+      ${observation
+      ? `
+        <section>
+          <h2>Observações</h2>
     
-        <div class="card">
-          <div class="card-content card-content-observation whitespace-pre-line" style="padding: 0px !important;">
-            ${observation}
+          <div class="card">
+            <div class="card-content card-content-observation whitespace-pre-line" style="padding: 0px !important;">
+              ${observation}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        `
+      : ``}
     </main>
   `;
 }

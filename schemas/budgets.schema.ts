@@ -42,7 +42,8 @@ export const budgetSchema = z.object({
   budget_email: z
     .string()
     .email("E-mail inválido.")
-    .min(1, 'E-mail orçamento é obrigatório.'),
+    .optional()
+    .or(z.literal('')),
 
   budget_phone: z
     .string()

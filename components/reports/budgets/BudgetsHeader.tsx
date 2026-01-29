@@ -1,4 +1,4 @@
-export function budgetHeader() {
+export function budgetHeader(logoBase64: string) {
   return `
     <div style="
       width: 100%;
@@ -11,13 +11,11 @@ export function budgetHeader() {
     ">
       <!-- Left -->
       <div style="width: 320px !important;.">
-        <div style="
-          font-size: 24px;
-          font-weight: bold;
-          letter-spacing: -0.5px;
-        ">
-          MODELAÇÃO IMPÉRIO
-        </div>
+        <img 
+          src=${logoBase64}
+          alt="Modelação Império"
+          style="width: 160px; display: block;"
+        />
       </div>
 
       <!-- Right -->

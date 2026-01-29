@@ -4,7 +4,7 @@ import { useModalContext } from "@/context/modal-context"
 import React, { ReactNode } from "react"
 import { Separator } from "../ui/separator"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { PencilEdit02Icon, Trash, UnfoldMoreIcon } from "@hugeicons/core-free-icons"
+import { MoreVerticalIcon, PencilEdit02Icon, Trash } from "@hugeicons/core-free-icons"
 import { showErrorSonner, showSuccessSonner } from "@/utils/sonner"
 
 type Props = {
@@ -40,7 +40,7 @@ export default function DropdownAction({ id, formEdit, menuItems = [], size = 's
                 <DropdownMenuTrigger asChild>
                     <Button variant='ghost' className="w-6 h-6">
                         <span className="sr-only">Abrir Menu de Ações</span>
-                        <HugeiconsIcon icon={UnfoldMoreIcon} />
+                        <HugeiconsIcon icon={MoreVerticalIcon} />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

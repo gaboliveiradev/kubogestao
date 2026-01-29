@@ -41,6 +41,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
         handleRemoveItem,
         toggleItem,
         expandedItemId,
+        total,
     } = useBudgetItems();
 
     const [loader, setLoader] = useState<Loader>({ state: false, message: "" });
@@ -205,6 +206,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
                     handleRemoveItem={handleRemoveItem}
                     toggleItem={toggleItem}
                     expandedItemId={expandedItemId}
+                    total={total}
                 />
 
                 <ButtonsFooterForm />

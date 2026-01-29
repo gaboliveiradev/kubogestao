@@ -23,6 +23,7 @@ type BudgetTabsProps = {
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
     expandedItemId: string | null,
+    total: number | undefined,
 }
 
 export default function BudgetTabs({
@@ -37,6 +38,7 @@ export default function BudgetTabs({
     handleRemoveItem,
     toggleItem,
     expandedItemId,
+    total,
 }: BudgetTabsProps) {
     const [activeTab, setActiveTab] = useState<TabValue>("clients");
 
@@ -86,6 +88,10 @@ export default function BudgetTabs({
                     toggleItem={toggleItem}
                     expandedItemId={expandedItemId}
                 />
+
+                <div className="grid grid-cols-12 gap-4 mt-4">
+                    <ResumeBudgetValue total={total} />
+                </div>
             </div>
 
             <div className={activeTab !== "observations" ? "hidden" : ""}>
@@ -93,10 +99,10 @@ export default function BudgetTabs({
                     values={values}
                     handleChange={handleChange}
                 />
-            </div>
 
-            <div className="grid grid-cols-12 gap-4 mt-4">
-                <ResumeBudgetValue />
+                <div className="grid grid-cols-12 gap-4 mt-4">
+                    <ResumeBudgetValue total={total} />
+                </div>
             </div>
         </div>
     )
