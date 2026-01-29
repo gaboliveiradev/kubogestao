@@ -10,3 +10,11 @@ export async function getBudgetsCount() {
 
   return await budgetsService.countBudgets(userLogged.user.id);
 }
+
+export async function getBudgetsSumTotal() {
+  const userLogged = await auth();
+
+  if (!userLogged?.user?.id) return 0;
+  
+  return await budgetsService.sumBudgetsTotal(userLogged.user.id);
+}

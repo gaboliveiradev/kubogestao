@@ -17,6 +17,18 @@ class BudgetsService extends FirestoreBaseService<Budget> {
         return snapshot.data().count;
     }
 
+    async sumBudgetsTotal(userId: string): Promise<number> {
+        const snapshot = await this.collection()
+            .where("user_id", "==", userId)
+            .get();
+
+        return snapshot.docs.reduce((acc, doc) => {
+            const data = doc.data() as Budget;
+            return acc + (data.total ?? 0);
+        }, 0);
+    }
+
+
     async saveBudget(data: UpsertBudgetDTO): Promise<{ id: string }> {
         return super.upsert(data.id, data);
     }
