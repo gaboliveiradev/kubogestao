@@ -11,6 +11,7 @@ export async function getBudgets() {
       return {
         success: false,
         message: "Você precisa estar logado para realizar esta ação.",
+        data: []
       };
     }
 
