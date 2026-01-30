@@ -22,7 +22,7 @@ import { getClientById } from "@/actions/clients/get-client-by-id.action";
 import { getBudgetById } from "@/actions/budgets/get-budget-by-id.action";
 import { getItemsByBudgetId } from "@/actions/budgets-items/get-items-by-budget-id";
 import { useBudgetItems } from "@/hooks/use-budget-item";
-import BudgetTabs from "./components/BudgetTabs";
+import BudgetTabs from "./BudgetTabs";
 
 export default function BudgetsFormModal({ id }: PropsUpdateForm) {
     const { values, errors, handleChange, setValues } = useZodFormState(budgetSchema);

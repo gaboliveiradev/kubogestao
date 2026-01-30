@@ -1,4 +1,6 @@
-import React from "react"
+"use client";
+
+import React, { Dispatch, SetStateAction } from "react"
 import {
     Table,
     TableHeader,
@@ -17,26 +19,50 @@ import {
 import { formatCurrency } from "@/utils/functions/string"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { FolderRemoveIcon } from "@hugeicons/core-free-icons"
-import { BudgetItem } from "@/hooks/use-budget-item"
+import { Add01Icon, ArrowRight01Icon, Delete02Icon, FolderRemoveIcon } from "@hugeicons/core-free-icons"
+import { BudgetItem, BudgetItemForm } from "@/hooks/use-budget-item"
+import { useModalContext } from "@/context/modal-context"
+import AddItemFormModal from "./AddItemFormModal";
 
 export type BudgetItemsTableProps = {
     items: BudgetItem[],
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
     expandedItemId: string | null,
+    itemForm: BudgetItemForm,
+    setItemForm: Dispatch<SetStateAction<BudgetItemForm>>;
+    handleAddItem: () => void,
+    handleItemChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
 }
 
-export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId }: BudgetItemsTableProps) {
+export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId, itemForm, setItemForm, handleItemChange, handleAddItem }: BudgetItemsTableProps) {
+    const { openModal } = useModalContext();
+
+    function handleClickOpenModalAddItem() {
+        openModal(
+            <AddItemFormModal
+                itemForm={itemForm} 
+                setItemForm={setItemForm}
+                handleItemChange={handleItemChange}
+                handleAddItem={handleAddItem}
+            />
+        );
+    }
+
     return (
         <Table className="border">
             <TableHeader className="sticky top-0 bg-background z-10">
                 <TableRow>
+                    <TableHead className="text-start px-2 w-3">
+                        <Button type="button" onClick={handleClickOpenModalAddItem} className="cursor-pointer" variant="default" size="icon-sm">
+                            <HugeiconsIcon icon={Add01Icon} />
+                        </Button>
+                    </TableHead>
                     <TableHead>Item</TableHead>
-                    <TableHead className="text-right">Qtd</TableHead>
-                    <TableHead className="text-right">Valor Unit (R$)</TableHead>
-                    <TableHead className="text-right">Total (R$)</TableHead>
-                    <TableHead />
+                    <TableHead className="text-end w-3">Qtd</TableHead>
+                    <TableHead className="text-end">Valor Unit (R$)</TableHead>
+                    <TableHead className="text-end">Total (R$)</TableHead>
+                    <TableHead className="text-end w-3"></TableHead>
                 </TableRow>
             </TableHeader>
 
@@ -70,8 +96,11 @@ export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, 
                                 className="border-t cursor-pointer hover:bg-muted/50"
                                 onClick={() => toggleItem(item.id)}
                             >
+                                <td className="p-2 text-start">
+                                    <HugeiconsIcon icon={ArrowRight01Icon} className={`transition-transform ${isExpanded ? "rotate-90" : ""}`} />
+                                </td>
                                 <td className="p-2">{item.name}</td>
-                                <td className="p-2 text-right">{item.quantity}</td>
+                                <td className="p-2 text-center">{item.quantity}</td>
                                 <td className="p-2 text-right">
                                     {formatCurrency(item.value)}
                                 </td>
@@ -86,9 +115,10 @@ export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, 
                                         type="button"
                                         variant="ghost"
                                         size="sm"
+                                        className="cursor-pointer"
                                         onClick={() => handleRemoveItem(item.id)}
                                     >
-                                        Remover
+                                        <HugeiconsIcon icon={Delete02Icon} />
                                     </Button>
                                 </td>
                             </tr>

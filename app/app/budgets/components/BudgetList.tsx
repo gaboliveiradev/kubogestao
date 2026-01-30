@@ -2,8 +2,8 @@
 
 import { DataTable } from "@/components/table/DataTable";
 import { BudgetDTO } from "@/services/firebase/budgets/dtos/budgets.dto";
-import { BudgetsColumnsDesktop } from "./colums";
-import BudgetsFormModal from "./budgets-form-modal";
+import { BudgetsColumnsDesktop } from "../colums";
+import BudgetsFormModal from "./BudgetsFormModal";
 
 interface Props {
   data: BudgetDTO[];
