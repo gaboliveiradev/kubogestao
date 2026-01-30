@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import Header from "@/components/common/Header";
 import ClientFormModal from "./clients-form-modal";
 import ClientList from "./clients-list";
