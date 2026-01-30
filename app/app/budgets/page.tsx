@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Header from "@/components/common/Header";
 import BudgetsFormModal from "./budgets-form-modal";
 import { getBudgets } from "@/actions/budgets/get-budgets.action";
