@@ -7,7 +7,7 @@ import { TabProps } from "@/types/tabs-props";
 export default function InfoContactTab({ values, errors, handleChange }: TabProps) {
     return (
         <div className="col-span-12 grid grid-cols-12 gap-x-4 gap-y-3 mt-2">
-            <div className='lg:col-span-6 col-span-12'>
+            <div className='lg:col-span-6 col-span-12 space-y-2'>
                 <Label htmlFor="customer_email">E-mail Orçamentos</Label>
                 <div className="mt-1">
                     <Input
@@ -19,7 +19,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                     <InputError text={errors.customer_email} />
                 </div>
             </div>
-            <div className='lg:col-span-6 col-span-12'>
+            <div className='lg:col-span-6 col-span-12 space-y-2'>
                 <Label htmlFor="billing_email">E-mail Cobrança</Label>
                 <div className="mt-1">
                     <Input
@@ -31,7 +31,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                     <InputError text={errors.billing_email} />
                 </div>
             </div>
-            <div className='lg:col-span-4 col-span-12'>
+            <div className='lg:col-span-4 col-span-12 space-y-2'>
                 <Label htmlFor="customer_phone">Telefone Cliente</Label>
                 <div className="mt-1">
                     <InputPhone
@@ -41,7 +41,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                     />
                 </div>
             </div>
-            <div className='lg:col-span-4 col-span-12'>
+            <div className='lg:col-span-4 col-span-12 space-y-2'>
                 <Label htmlFor="responsible_phone">Telefone Responsável</Label>
                 <div className="mt-1">
                     <InputPhone
@@ -51,7 +51,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                     />
                 </div>
             </div>
-            <div className='lg:col-span-4 col-span-12'>
+            <div className='lg:col-span-4 col-span-12 space-y-2'>
                 <Label htmlFor="billing_phone">Telefone Cobrança</Label>
                 <div className="mt-1">
                     <InputPhone

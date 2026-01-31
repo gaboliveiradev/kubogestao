@@ -153,7 +153,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
             <form action={handleSubmit} className="col-span-12 grid grid-cols-12 gap-x-4 gap-y-3 mt-2">
                 {id && <Input name="id" type="hidden" value={id} />}
 
-                <div className='lg:col-span-3 col-span-12'>
+                <div className='lg:col-span-3 col-span-12 space-y-2'>
                     <Label htmlFor="budget_key">Código Orçamento *</Label>
                     <div className="mt-1">
                         <Input
@@ -167,7 +167,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
                     </div>
                 </div>
 
-                <div className='lg:col-span-9 col-span-12'>
+                <div className='lg:col-span-9 col-span-12 space-y-2'>
                     <Label htmlFor="client_id">Cliente *</Label>
                     <div className="mt-1">
                         <Select

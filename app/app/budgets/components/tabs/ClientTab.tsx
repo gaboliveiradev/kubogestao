@@ -16,7 +16,7 @@ type ClientTabProps = {
 export default function ClientTab({ values, errors, handleChange }: ClientTabProps) {
     return (
         <div className="grid grid-cols-12 gap-4 mb-4">
-            <div className='lg:col-span-4 col-span-12'>
+            <div className='lg:col-span-4 col-span-12 space-y-2'>
                 <Label htmlFor="client_document">CNPJ/CPF *</Label>
                 <div className="mt-1">
                     <InputDocument
@@ -27,7 +27,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_document} />
                 </div>
             </div>
-            <div className='lg:col-span-8 col-span-12'>
+            <div className='lg:col-span-8 col-span-12 space-y-2'>
                 <Label htmlFor="client_name">Razão Social *</Label>
                 <div className="mt-1">
                     <Input
@@ -39,7 +39,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_name} />
                 </div>
             </div>
-            <div className='lg:col-span-3 col-span-12'>
+            <div className='lg:col-span-3 col-span-12 space-y-2'>
                 <Label htmlFor="responsible_client_name">Nome Responsável</Label>
                 <div className="mt-1">
                     <Input
@@ -51,7 +51,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                 </div>
             </div>
 
-            <div className='lg:col-span-5 col-span-12'>
+            <div className='lg:col-span-5 col-span-12 space-y-2'>
                 <Label htmlFor="budget_email">E-mail Orçamento</Label>
                 <div className="mt-1">
                     <Input
@@ -64,7 +64,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                 </div>
             </div>
 
-            <div className='lg:col-span-4 col-span-12'>
+            <div className='lg:col-span-4 col-span-12 space-y-2'>
                 <Label htmlFor="budget_phone">Telefone Orçamento</Label>
                 <div className="mt-1">
                     <InputPhone
@@ -76,7 +76,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
             </div>
 
 
-            <div className="lg:col-span-3 col-span-12">
+            <div className="lg:col-span-3 col-span-12 space-y-2">
                 <Label htmlFor="client_zipcode">CEP *</Label>
                 <div className="mt-1">
                     <InputCEP
@@ -88,7 +88,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_zipcode} />
                 </div>
             </div>
-            <div className='lg:col-span-9 col-span-12'>
+            <div className='lg:col-span-9 col-span-12 space-y-2'>
                 <Label htmlFor="client_address">Logradouro *</Label>
                 <div className="mt-1">
                     <Input
@@ -100,7 +100,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_address} />
                 </div>
             </div>
-            <div className='lg:col-span-2 col-span-12'>
+            <div className='lg:col-span-2 col-span-12 space-y-2'>
                 <Label htmlFor="client_number">Número</Label>
                 <div className="mt-1">
                     <Input
@@ -112,7 +112,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_number} />
                 </div>
             </div>
-            <div className='lg:col-span-7 col-span-12'>
+            <div className='lg:col-span-7 col-span-12 space-y-2'>
                 <Label htmlFor="client_city">Cidade *</Label>
                 <div className="mt-1">
                     <Input
@@ -124,7 +124,7 @@ export default function ClientTab({ values, errors, handleChange }: ClientTabPro
                     <InputError text={errors.client_city} />
                 </div>
             </div>
-            <div className='lg:col-span-3 col-span-12'>
+            <div className='lg:col-span-3 col-span-12 space-y-2'>
                 <Label htmlFor="client_state">Estado *</Label>
                 <div className="mt-1">
                     <Input

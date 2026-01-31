@@ -38,7 +38,6 @@ export default async function DashboardPage() {
           {getCompleteDate()}
         </span>
       </section>
-
       <section className="col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <CardStats Icon={UserCheck01Icon} title="Clientes Ativos" data={String(countClients)} />
         <CardStats Icon={CrownIcon} title="Orçamentos Criados" data={String(countBudgets)} />

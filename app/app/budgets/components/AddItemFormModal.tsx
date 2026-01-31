@@ -50,7 +50,7 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
     return (
         <FormModal title="Adicionar Item" pending={false}>
             <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-12 lg:col-span-12">
+                <div className="col-span-12 lg:col-span-12 space-y-2">
                     <Label>Nome</Label>
                     <Input
                         name="name"
@@ -59,7 +59,7 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
                     />
                 </div>
 
-                <div className="col-span-6 lg:col-span-4">
+                <div className="col-span-6 lg:col-span-4 space-y-2">
                     <Label>Quantidade</Label>
                     <div className="flex justify-center items-center">
                         <Button variant="outline" type="button" onClick={decreaseQuantity} className="mr-2 cursor-pointer">
@@ -79,7 +79,7 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
                     </div>
                 </div>
 
-                <div className="col-span-6 lg:col-span-8">
+                <div className="col-span-6 lg:col-span-8 space-y-2">
                     <Label>Valor Unitário (R$)</Label>
                     <Input
                         name="value"

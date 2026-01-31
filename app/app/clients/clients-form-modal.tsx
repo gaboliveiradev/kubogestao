@@ -83,7 +83,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
             <form action={formAction} className="col-span-12 grid grid-cols-12 gap-x-4 gap-y-3 mt-2">
                 {id && <Input name="id" type="hidden" value={id} />}
 
-                <div className='lg:col-span-3 col-span-12'>
+                <div className='lg:col-span-3 col-span-12 space-y-2'>
                     <Label htmlFor="document">CNPJ/CPF *</Label>
                     <div className="mt-1">
                         <InputDocument
@@ -95,7 +95,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         <InputError text={errors.document} />
                     </div>
                 </div>
-                <div className='lg:col-span-5 col-span-12'>
+                <div className='lg:col-span-5 col-span-12 space-y-2'>
                     <Label htmlFor="corporate_name">Razão Social *</Label>
                     <div className="mt-1">
                         <Input
@@ -107,7 +107,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         <InputError text={errors.corporate_name} />
                     </div>
                 </div>
-                <div className='lg:col-span-4 col-span-12'>
+                <div className='lg:col-span-4 col-span-12 space-y-2'>
                     <Label htmlFor="fantasy_name">Nome Fantasia</Label>
                     <div className="mt-1">
                         <Input
@@ -118,7 +118,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         />
                     </div>
                 </div>
-                <div className='lg:col-span-5 col-span-12'>
+                <div className='lg:col-span-5 col-span-12 space-y-2'>
                     <Label htmlFor="company_nickname">Apelido</Label>
                     <div className="mt-1">
                         <Input
@@ -129,7 +129,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         />
                     </div>
                 </div>
-                <div className='lg:col-span-4 col-span-12'>
+                <div className='lg:col-span-4 col-span-12 space-y-2'>
                     <Label htmlFor="responsible_name">Nome Responsável</Label>
                     <div className="mt-1">
                         <Input
@@ -140,7 +140,7 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
                         />
                     </div>
                 </div>
-                <div className='lg:col-span-3 col-span-12'>
+                <div className='lg:col-span-3 col-span-12 space-y-2'>
                     <Label htmlFor="budget_key">Chave de Orçamento *</Label>
                     <div className="mt-1">
                         <Input

@@ -7,6 +7,7 @@ import IMask, { InputMask } from "imask"
 import { Input } from "@/components/ui/input"
 
 interface InputDocumentProps {
+  className?: string
   name: string
   id?: string
   placeholder?: string
@@ -16,6 +17,7 @@ interface InputDocumentProps {
 }
 
 export function InputDocument({
+  className,
   name,
   id,
   placeholder,
@@ -80,10 +82,11 @@ export function InputDocument({
 
   return (
     <Input
+      className={className}
       ref={inputRef}
       name={name}
       id={id}
-      placeholder={placeholder || "CPF ou CNPJ"}
+      placeholder={placeholder || "CNPJ ou CPF"}
       value={value || ""}
       onChange={() => { }}
       onBlur={onBlur}

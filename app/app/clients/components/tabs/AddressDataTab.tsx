@@ -41,7 +41,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
     return (
         <div className="col-span-12 grid grid-cols-12 gap-x-4 gap-y-3 mt-2">
 
-            <div className="lg:col-span-3 col-span-12">
+            <div className="lg:col-span-3 col-span-12 space-y-2">
                 <Label htmlFor="zipcode">CEP *</Label>
                 <div className="mt-1">
                     <InputCEP
@@ -54,7 +54,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
                     <InputError text={errors.zipcode} />
                 </div>
             </div>
-            <div className='lg:col-span-7 col-span-12'>
+            <div className='lg:col-span-7 col-span-12 space-y-2'>
                 <Label htmlFor="address">Logradouro *</Label>
                 <div className="mt-1">
                     <Input
@@ -66,7 +66,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
                     <InputError text={errors.address} />
                 </div>
             </div>
-            <div className='lg:col-span-2 col-span-12'>
+            <div className='lg:col-span-2 col-span-12 space-y-2'>
                 <Label htmlFor="number">Número *</Label>
                 <div className="mt-1">
                     <Input
@@ -78,7 +78,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
                     <InputError text={errors.number} />
                 </div>
             </div>
-            <div className='lg:col-span-5 col-span-12'>
+            <div className='lg:col-span-5 col-span-12 space-y-2'>
                 <Label htmlFor="neighborhood">Bairro *</Label>
                 <div className="mt-1">
                     <Input
@@ -90,7 +90,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
                     <InputError text={errors.neighborhood} />
                 </div>
             </div>
-            <div className='lg:col-span-5 col-span-12'>
+            <div className='lg:col-span-5 col-span-12 space-y-2'>
                 <Label htmlFor="city">Cidade *</Label>
                 <div className="mt-1">
                     <Input
@@ -102,7 +102,7 @@ export default function AddressDataTab({ values, setValues, errors, handleChange
                     <InputError text={errors.city} />
                 </div>
             </div>
-            <div className='lg:col-span-2 col-span-12'>
+            <div className='lg:col-span-2 col-span-12 space-y-2'>
                 <Label htmlFor="state">Estado *</Label>
                 <div className="mt-1">
                     <Input

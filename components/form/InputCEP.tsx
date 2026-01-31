@@ -6,6 +6,7 @@ import IMask, { InputMask } from "imask"
 import { Input } from "@/components/ui/input"
 
 interface InputCepProps {
+  className?: string
   name: string
   id?: string
   placeholder?: string
@@ -15,6 +16,7 @@ interface InputCepProps {
 }
 
 export function InputCEP({
+  className,
   name,
   id,
   placeholder,
@@ -63,6 +65,7 @@ export function InputCEP({
 
   return (
     <Input
+      className={className}
       ref={inputRef}
       name={name}
       id={id}
