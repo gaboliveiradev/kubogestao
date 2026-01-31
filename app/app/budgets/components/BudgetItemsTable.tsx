@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react"
+import React from "react"
 import {
     Table,
     TableHeader,
@@ -29,21 +29,15 @@ export type BudgetItemsTableProps = {
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
     expandedItemId: string | null,
-    itemForm: BudgetItemForm,
-    setItemForm: Dispatch<SetStateAction<BudgetItemForm>>;
-    handleAddItem: () => void,
-    handleItemChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+    handleAddItem: (itemForm: BudgetItemForm) => void,
 }
 
-export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId, itemForm, setItemForm, handleItemChange, handleAddItem }: BudgetItemsTableProps) {
+export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId, handleAddItem }: BudgetItemsTableProps) {
     const { openModal } = useModalContext();
 
     function handleClickOpenModalAddItem() {
         openModal(
             <AddItemFormModal
-                itemForm={itemForm} 
-                setItemForm={setItemForm}
-                handleItemChange={handleItemChange}
                 handleAddItem={handleAddItem}
             />
         );

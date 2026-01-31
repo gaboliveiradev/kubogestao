@@ -34,10 +34,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
     const {
         items,
         setItems,
-        itemForm,
-        setItemForm,
         handleAddItem,
-        handleItemChange,
         handleRemoveItem,
         toggleItem,
         expandedItemId,
@@ -199,10 +196,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
                     handleChange={handleChange}
                     errors={errors}
                     items={items}
-                    itemForm={itemForm}
-                    setItemForm={setItemForm}
                     handleAddItem={handleAddItem}
-                    handleItemChange={handleItemChange}
                     handleRemoveItem={handleRemoveItem}
                     toggleItem={toggleItem}
                     expandedItemId={expandedItemId}

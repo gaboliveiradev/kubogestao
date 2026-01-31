@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RichTextEditor } from "@/components/rich-text-editor/RichTextEditor"
+import { ChangeEvent } from "react";
 
 type ObservationTabProps = {
     values: any
-    handleChange: (e: any) => void
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | { name: string; value: any }) => void;
 }
 
 export default function ObservationTab({ values, handleChange }: ObservationTabProps) {

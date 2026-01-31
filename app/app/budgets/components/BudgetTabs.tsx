@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import ResumeBudgetValue from "./ResumeBudgetValue"
 import ClientTab from "./tabs/ClientTab"
 import ItemsTab from "./tabs/ItemsTab"
@@ -15,10 +15,7 @@ type BudgetTabsProps = {
     values: any
     errors: any,
     handleChange: (e: any) => void,
-    itemForm: BudgetItemForm,
-    setItemForm: Dispatch<SetStateAction<BudgetItemForm>>;
-    handleAddItem: () => void,
-    handleItemChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
+    handleAddItem: (itemForm: BudgetItemForm) => void,
     items: BudgetItem[],
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
@@ -30,10 +27,7 @@ export default function BudgetTabs({
     values,
     errors,
     handleChange,
-    itemForm,
-    setItemForm,
     handleAddItem,
-    handleItemChange,
     items,
     handleRemoveItem,
     toggleItem,
@@ -79,10 +73,7 @@ export default function BudgetTabs({
 
             <div className={activeTab !== "items" ? "hidden" : ""}>
                 <ItemsTab
-                    itemForm={itemForm}
-                    setItemForm={setItemForm}
                     handleAddItem={handleAddItem}
-                    handleItemChange={handleItemChange}
                     items={items}
                     handleRemoveItem={handleRemoveItem}
                     toggleItem={toggleItem}
