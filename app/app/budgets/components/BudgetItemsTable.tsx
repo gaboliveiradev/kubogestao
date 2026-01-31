@@ -119,8 +119,15 @@ export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, 
 
                             {isExpanded && (
                                 <tr className="bg-muted/30">
-                                    <td colSpan={5} className="p-4 text-sm text-muted-foreground">
-                                        {item.description || "Nenhuma descrição informada."}
+                                    <td colSpan={6} className="p-4 text-sm text-muted-foreground">
+                                        {item.description ? (
+                                            <div
+                                                className="prose prose-sm max-w-none"
+                                                dangerouslySetInnerHTML={{ __html: item.description }}
+                                            />
+                                        ) : (
+                                            "Nenhuma descrição informada."
+                                        )}
                                     </td>
                                 </tr>
                             )}

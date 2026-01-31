@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BudgetItemForm } from "@/hooks/use-budget-item";
 import { formatCurrency } from "@/utils/functions/string";
-import { MinusSignIcon, PlusSignIcon } from "@hugeicons/core-free-icons";
+import { Add01Icon, MinusSignIcon, PlusSignIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
@@ -97,12 +97,6 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
                 </div>
 
                 <div className="col-span-12">
-                    {/* <Textarea
-                        name="description"
-                        placeholder="Descrição do item (opcional)"
-                        value={itemForm.description}
-                        onChange={handleItemChange}
-                    /> */}
                     <RichTextEditor
                         value={itemForm.description}
                         onChange={(html: string) => handleChangeObservation(html)}
@@ -110,7 +104,8 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
                 </div>
 
                 <div className="col-span-12 flex justify-end items-center">
-                    <Button onClick={() => handleAddItem(itemForm)}>
+                    <Button onClick={() => handleAddItem(itemForm)} className="cursor-pointer">
+                        <HugeiconsIcon icon={Add01Icon} />
                         Adicionar Item
                     </Button>
                 </div>
