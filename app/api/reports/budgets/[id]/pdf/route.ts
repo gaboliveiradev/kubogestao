@@ -43,8 +43,8 @@ export async function GET(
     return NextResponse.json({ error: "Itens do orçamento não encontrado" }, { status: 404 });
   }
 
-  // const logoUrl = "https://i.imgur.com/XonZB5w.png";
-  const logoUrl = "https://imgur.com/IBH9bu2.png";
+  const logoUrl = "https://i.imgur.com/XonZB5w.png";
+  // const logoUrl = "https://imgur.com/IBH9bu2.png";
   const logoBase64 = await imageURLToBase64(logoUrl);
 
   const html = `
