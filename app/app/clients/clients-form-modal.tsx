@@ -114,11 +114,13 @@ export default function ClientFormModal({ id }: PropsUpdateForm) {
     }
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        const { valid } = validateAll();
+        const { valid, errors: validationErrors } = validateAll();
 
         if (!valid) {
             e.preventDefault();
             setSubmitAttempt((n) => n + 1);
+            // evita falha silenciosa quando o erro está em campo/aba não visível
+            showErrorSonner(Object.values(validationErrors)[0] || "Verifique os campos do formulário.");
         }
     }
 

@@ -22,112 +22,183 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) 
 
   return `
     <style>
+        :root {
+          --ink: #111827;
+          --muted: #6b7280;
+          --line: #e5e7eb;
+          --line-strong: #cbd5e1;
+          --surface: #f8fafc;
+          --accent: #475569;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
         body {
           font-family: Arial, Helvetica, sans-serif;
           font-size: 12px;
-          color: #000;
-        }
-
-        h2 {
-          font-size: 14px;
-          font-weight: 600;
-          margin-bottom: 6px;
+          color: var(--ink);
+          margin: 0;
+          padding: 0 20px;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
 
         section {
-          margin-top: 16px;
+          margin-top: 18px;
         }
 
-        .box {
-            border: 1px solid #bfbdbd !important;
+        h2 {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin: 0 0 8px;
+        }
+
+        h2::before {
+          content: "";
+          width: 4px;
+          height: 14px;
+          border-radius: 2px;
+          background: var(--accent);
+        }
+
+        .budgetKey {
+          margin-top: 0;
+          padding: 12px 16px;
+          border-radius: 6px;
+          background: var(--accent) !important;
+          color: #fff;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+        }
+
+        .box,
+        .card {
+          border: 1px solid var(--line-strong);
+          border-radius: 6px;
+          overflow: hidden;
         }
 
         .row {
           display: grid;
-          border-bottom: 1px solid #bfbdbd !important;
+          border-bottom: 1px solid var(--line);
         }
-    
+
         .row:last-child {
-          border-bottom: none !important;
+          border-bottom: none;
         }
-    
+
+        .row:nth-child(odd) {
+          background: var(--surface);
+        }
+
         .info {
           display: flex;
-          gap: 4px;
-          padding: 4px 8px;
-          font-size: 14px;
+          flex-direction: column;
+          gap: 2px;
+          padding: 6px 10px;
+          font-size: 13px;
+          min-width: 0;
+          word-break: break-word;
         }
-    
+
+        .info span:not(.label) {
+          text-transform: uppercase;
+        }
+
+        td.service-name,
+        td.service-description {
+          text-transform: uppercase;
+        }
+
         .info.border-right {
-          border-right: 1px solid #bfbdbd !important;
+          border-right: 1px solid var(--line);
         }
-    
+
         .label {
-          font-weight: 600;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--muted);
           white-space: nowrap;
         }
-    
+
         table {
           width: 100%;
           border-collapse: collapse;
-          font-size: 14px;
+          font-size: 13px;
         }
-    
+
         thead {
-          background: #f3f4f6;
+          display: table-header-group;
         }
-    
-        th, td {
-          padding: 4px 8px;
-          border-bottom: 1px solid #d1d5db;
-          border-right: 1px solid #d1d5db;
-        }
-    
-        th:last-child,
-        td:last-child {
-          border-right: none;
-        }
-    
+
         th {
+          padding: 8px 10px;
+          background: var(--accent) !important;
+          color: #fff;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
           text-align: left;
-          font-weight: 600;
         }
-    
+
+        td {
+          padding: 7px 10px;
+          vertical-align: top;
+          border-bottom: 1px solid var(--line);
+        }
+
+        tr {
+          page-break-inside: avoid;
+        }
+
+        tbody tr:nth-child(even) td {
+          background: #eef1f5 !important;
+        }
+
         .text-right {
           text-align: right;
         }
-    
+
         .text-center {
           text-align: center;
         }
-    
+
         .total {
           display: flex;
           justify-content: flex-end;
-          padding: 4px 8px;
-          font-weight: 600;
-          font-size: 14px !important;
-        }
-    
-        .card {
-          border: 1px solid #bfbdbd !important;
-        }
-    
-        .card-content {
-          padding: 0;
+          align-items: center;
+          gap: 12px;
+          padding: 10px 12px;
+          background: var(--accent) !important;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 700;
+          page-break-inside: avoid;
         }
 
-        .card-content-observation p {
-          font-size: 14px !important;
-          padding: 0px 12px !important;
+        .total-label {
+          font-size: 10px;
+          letter-spacing: 0.08em;
+          color: #cbd5e1;
         }
 
-        .budgetKey {
-          background-color: #d3d3d3 !important;
-          padding: 10px !important;
-          text-align: center;
-          font-size: 16px !important;
-          font-weight: 600 !important;
+        .observation {
+          padding: 10px 12px;
+          font-size: 13px;
+          line-height: 1.5;
+          white-space: pre-line;
         }
     </style>
 
@@ -167,7 +238,7 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) 
         <h2>Descrição dos Serviços</h2>
     
         <div class="card">
-          <div class="card-content">
+          <div>
             <table>
               <thead>
                 <tr>
@@ -180,8 +251,8 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) 
               <tbody>
                 ${budgetItems.map(item => `
                   <tr>
-                    <td>${item.name}</td>
-                    <td>${item.description ?? ""}</td>
+                    <td class="service-name">${item.name}</td>
+                    <td class="service-description">${item.description ?? ""}</td>
                     <td class="text-center">${item.quantity}</td>
                     <td class="text-right">${formatCurrency(item.value)}</td>
                   </tr>
@@ -189,21 +260,19 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) 
               </tbody>
             </table>
     
-            <div class="total">${totalService}</div>
+            <div class="total"><span class="total-label">TOTAL</span>${totalService}</div>
           </div>
         </div>
       </section>
-    
+
       <!-- Observações -->
       ${observation
       ? `
         <section>
           <h2>Observações</h2>
-    
+
           <div class="card">
-            <div class="card-content card-content-observation whitespace-pre-line" style="padding: 0px !important;">
-              ${observation}
-            </div>
+            <div class="observation">${observation}</div>
           </div>
         </section>
         `
@@ -215,7 +284,7 @@ export function BudgetPDFContent(data: BudgetDTO, budgetItems: BudgetItemDTO[]) 
 function info(label: string, value: string, borderRight = false) {
   return `
     <div class="info ${borderRight ? "border-right" : ""}">
-      <span class="label">${label}:</span>
+      <span class="label">${label}</span>
       <span>${value}</span>
     </div>
   `;

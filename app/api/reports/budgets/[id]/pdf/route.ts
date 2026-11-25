@@ -85,7 +85,7 @@ export async function GET(
       footerTemplate: budgetFooter(
         new Date().toLocaleDateString("pt-BR")
       ),
-      margin: { top: "18mm", bottom: "28mm", left: "3mm", right: "3mm" },
+      margin: { top: "22mm", bottom: "28mm", left: "3mm", right: "3mm" },
     });
 
     return new NextResponse(Buffer.from(pdf), {

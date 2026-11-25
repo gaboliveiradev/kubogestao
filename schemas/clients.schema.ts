@@ -9,7 +9,8 @@ const cepRegex = /^\d{8}$/;
 const phoneRegex = /^\d{10,11}$/;
 
 export const clientSchema = z.object({
-  id: z.string().uuid().optional(),
+  // IDs do Firestore são alfanuméricos (não UUID)
+  id: z.string().min(1).optional(),
 
   // ===== Dados principais =====
   document: z
