@@ -23,6 +23,8 @@ interface DataTableProps<TData, TValue> {
   fieldFilter?: string;
   getRowStyle?: (row: Row<TData>) => React.CSSProperties;
   size?: 'sm' | 'md' | 'lg';
+  /** filtros adicionais renderizados ao lado do campo de pesquisa */
+  extraFilters?: React.ReactNode;
 }
 
 interface hasId {
@@ -35,21 +37,25 @@ export function DataTable<TData extends hasId, TValue>({
   FormEdit,
   fieldFilter,
   getRowStyle,
-  size = 'sm'
+  size = 'sm',
+  extraFilters
 }: DataTableProps<TData, TValue>) {
   const { openModal } = useModalContext();
   const table = useTable<TData, TValue>(data, columns);
 
   return (
     <div className="w-full">
-      {fieldFilter && (
-        <div className="flex items-center py-4">
-          <Input
-            placeholder="Pesquisar"
-            value={String(table.getColumn(fieldFilter)?.getFilterValue() ?? "")}
-            onChange={(e) => table.getColumn(fieldFilter)?.setFilterValue(e.target.value)}
-            className="max-w-sm"
-          />
+      {(fieldFilter || extraFilters) && (
+        <div className="flex flex-wrap items-center gap-2 py-4">
+          {fieldFilter && (
+            <Input
+              placeholder="Pesquisar"
+              value={String(table.getColumn(fieldFilter)?.getFilterValue() ?? "")}
+              onChange={(e) => table.getColumn(fieldFilter)?.setFilterValue(e.target.value)}
+              className="max-w-sm"
+            />
+          )}
+          {extraFilters}
         </div>
       )}
 

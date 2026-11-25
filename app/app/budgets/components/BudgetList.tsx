@@ -22,19 +22,27 @@ export default function BudgetList({ data, clients }: Props) {
     [data, clientId],
   );
 
-  return (
-    <div className="w-full">
-      <div className="flex items-center gap-2 pt-4">
-        <div className="w-full max-w-sm">
-          <ClientCombobox clients={clients} value={clientId} onSelect={setClientId} />
-        </div>
-        {clientId && (
-          <Button variant="outline" size="sm" onClick={() => setClientId(undefined)}>
-            Limpar
-          </Button>
-        )}
+  const clientFilter = (
+    <>
+      <div className="w-full max-w-sm">
+        <ClientCombobox clients={clients} value={clientId} onSelect={setClientId} />
       </div>
-      <DataTable columns={BudgetsColumnsDesktop} data={filteredData} fieldFilter="client_name" FormEdit={BudgetsFormModal} size="lg" />
-    </div>
+      {clientId && (
+        <Button variant="outline" size="sm" onClick={() => setClientId(undefined)}>
+          Limpar
+        </Button>
+      )}
+    </>
+  );
+
+  return (
+    <DataTable
+      columns={BudgetsColumnsDesktop}
+      data={filteredData}
+      fieldFilter="client_name"
+      extraFilters={clientFilter}
+      FormEdit={BudgetsFormModal}
+      size="lg"
+    />
   );
 }
