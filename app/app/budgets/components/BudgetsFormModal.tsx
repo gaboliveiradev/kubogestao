@@ -7,13 +7,12 @@ import FormModal, { Loader } from "@/components/form/FormModal";
 import { InputError } from "@/components/form/InputError";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useZodFormState } from "@/hooks/use-zod-form-state";
 import { budgetSchema } from "@/schemas/budgets.schema";
 import { ClientDTO } from "@/services/firebase/clients/dtos/clients.dto";
 import { PropsUpdateForm } from "@/types/update-form";
-import { formatDocument, generateBudgetCode } from "@/utils/functions/string";
-import React, { useState, useEffect, useActionState } from "react";
+import { generateBudgetCode } from "@/utils/functions/string";
+import React, { useState, useEffect, useActionState, useRef } from "react";
 import { handleFormFeedback, showErrorSonner } from "@/utils/sonner";
 import ButtonsFooterForm from "@/components/form/ButtonsFooterForm";
 import { ServiceResponse } from "@/types/service-response";
@@ -23,6 +22,12 @@ import { getBudgetById } from "@/actions/budgets/get-budget-by-id.action";
 import { getItemsByBudgetId } from "@/actions/budgets-items/get-items-by-budget-id";
 import { useBudgetItems } from "@/hooks/use-budget-item";
 import BudgetTabs from "./BudgetTabs";
+import ClientCombobox from "./ClientCombobox";
+import { getUserSettings } from "@/actions/settings/get-user-settings.action";
+import { BudgetSettings } from "@/types/user-settings";
+import { resolveBudgetPlaceholders } from "@/utils/functions/budget-placeholders";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Invoice01Icon, UserSearch01Icon } from "@hugeicons/core-free-icons";
 
 export default function BudgetsFormModal({ id }: PropsUpdateForm) {
     const { values, errors, handleChange, setValues } = useZodFormState(budgetSchema);
@@ -35,6 +40,7 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
         items,
         setItems,
         handleAddItem,
+        handleUpdateItem,
         handleRemoveItem,
         toggleItem,
         expandedItemId,
@@ -43,6 +49,8 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
 
     const [loader, setLoader] = useState<Loader>({ state: false, message: "" });
     const [clients, setClients] = useState<ClientDTO[]>([]);
+    const [budgetSettings, setBudgetSettings] = useState<BudgetSettings | null>(null);
+    const autoAppliedRef = useRef(false);
 
     useEffect(() => {
         handleFormFeedback({ state })
@@ -63,6 +71,12 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
 
         fetchClients();
     }, [id]);
+
+    useEffect(() => {
+        getUserSettings().then((res) => {
+            if (res.success) setBudgetSettings(res.data.budget);
+        });
+    }, []);
 
     useEffect(() => {
         if (!id) return;
@@ -101,6 +115,28 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
 
         loadBudget(id);
     }, [id, setValues]);
+
+    // Gera a observação a partir do modelo salvo nas configurações, com os valores atuais do orçamento
+    function applyDefaultObservation() {
+        if (!budgetSettings?.default_observation) return;
+
+        const html = resolveBudgetPlaceholders(budgetSettings.default_observation, {
+            total: total ?? 0,
+            settings: budgetSettings,
+            clientName: values.client_name,
+            budgetKey: values.budget_key,
+        });
+
+        handleChange({ target: { name: "observations", value: html } } as any);
+    }
+
+    // Novo orçamento: ao abrir a aba de observações pela primeira vez, aplica o modelo se estiver vazia
+    function handleObservationsOpen() {
+        if (id || autoAppliedRef.current || !budgetSettings?.auto_apply_observation) return;
+
+        autoAppliedRef.current = true;
+        if (!values.observations) applyDefaultObservation();
+    }
 
     function handleSubmit(formData: FormData) {
         if (items.length === 0) {
@@ -149,45 +185,41 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
     }
 
     return (
-        <FormModal title="Novo Orçamento" loader={loader} pending={pending}>
+        <FormModal
+            title={id ? "Editar Orçamento" : "Novo Orçamento"}
+            description="Selecione o cliente, adicione os itens e finalize o orçamento."
+            loader={loader}
+            pending={pending}
+        >
             <form action={handleSubmit} className="col-span-12 grid grid-cols-12 gap-x-4 gap-y-3 mt-2">
                 {id && <Input name="id" type="hidden" value={id} />}
+                <input type="hidden" name="client_id" value={values.client_id?.toString() || ""} />
+                <input type="hidden" name="budget_key" value={values.budget_key || ""} />
 
-                <div className='lg:col-span-3 col-span-12 space-y-2'>
-                    <Label htmlFor="budget_key">Código Orçamento *</Label>
-                    <div className="mt-1">
-                        <Input
-                            name="budget_key"
-                            type='text'
-                            value={values.budget_key || ""}
-                            onChange={handleChange}
-                            readOnly={true}
+                <div className="col-span-12 grid grid-cols-12 gap-4 rounded-xl border bg-muted/30 p-4">
+                    <div className="lg:col-span-8 col-span-12 space-y-2">
+                        <Label className="flex items-center gap-1.5 text-muted-foreground">
+                            <HugeiconsIcon icon={UserSearch01Icon} className="size-4" />
+                            Cliente *
+                        </Label>
+                        <ClientCombobox
+                            clients={clients}
+                            value={values.client_id?.toString()}
+                            onSelect={handleChangeClient}
+                            invalid={!!errors.client_id}
                         />
-                        <InputError text={errors.budget_key} />
-                    </div>
-                </div>
-
-                <div className='lg:col-span-9 col-span-12 space-y-2'>
-                    <Label htmlFor="client_id">Cliente *</Label>
-                    <div className="mt-1">
-                        <Select
-                            name="client_id"
-                            value={values.client_id?.toString() || "-1"}
-                            onValueChange={(val) => handleChangeClient(val)}
-                        >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="SELECIONE" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="-1" disabled>SELECIONE</SelectItem>
-                                {clients?.map((client, i) => {
-                                    return (
-                                        <SelectItem key={i} value={client.id}>{formatDocument(client.document)} - {client.corporate_name}</SelectItem>
-                                    )
-                                })}
-                            </SelectContent>
-                        </Select>
                         <InputError text={errors.client_id} />
+                    </div>
+
+                    <div className="lg:col-span-4 col-span-12 space-y-2">
+                        <Label className="flex items-center gap-1.5 text-muted-foreground">
+                            <HugeiconsIcon icon={Invoice01Icon} className="size-4" />
+                            Código do Orçamento *
+                        </Label>
+                        <div className="flex h-11 items-center rounded-lg border border-dashed bg-background px-3 font-mono text-sm font-semibold tracking-wide">
+                            {values.budget_key || <span className="font-sans font-normal text-muted-foreground">Gerado ao selecionar o cliente</span>}
+                        </div>
+                        <InputError text={errors.budget_key} />
                     </div>
                 </div>
 
@@ -197,10 +229,14 @@ export default function BudgetsFormModal({ id }: PropsUpdateForm) {
                     errors={errors}
                     items={items}
                     handleAddItem={handleAddItem}
+                    handleUpdateItem={handleUpdateItem}
                     handleRemoveItem={handleRemoveItem}
                     toggleItem={toggleItem}
                     expandedItemId={expandedItemId}
                     total={total}
+                    hasDefaultObservation={!!budgetSettings?.default_observation}
+                    onApplyDefaultObservation={applyDefaultObservation}
+                    onObservationsOpen={handleObservationsOpen}
                 />
 
                 <ButtonsFooterForm />

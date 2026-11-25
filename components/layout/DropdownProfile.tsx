@@ -1,11 +1,13 @@
 "use client";
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getFirstLetter, getFirstName } from "@/utils/functions/string";
 import { manageAuth } from "@/actions/auth";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { MoneySendSquareIcon, UnfoldMoreIcon, LogoutSquare02Icon, WhatsappIcon, UserIcon } from "@hugeicons/core-free-icons";
+import { MoneySendSquareIcon, UnfoldMoreIcon, LogoutSquare02Icon, WhatsappIcon, UserIcon, PaintBrush01Icon, LaptopSettingsIcon, Sun02Icon, Moon02Icon } from "@hugeicons/core-free-icons";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/auth-context";
 
 interface Props {
@@ -14,6 +16,8 @@ interface Props {
 
 export default function DropdownMenuProfile({ isMobile = false }: Props) {
     const { user } = useAuthContext();
+    const { theme, setTheme } = useTheme();
+    const router = useRouter();
 
     const nameUser = user?.user?.name || '';
     const emailUser = user?.user?.email || '';
@@ -67,9 +71,21 @@ export default function DropdownMenuProfile({ isMobile = false }: Props) {
                         <DropdownMenuSeparator />
                     </>
                 )}
-                <DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.push("/app/settings")}>
                     <HugeiconsIcon icon={UserIcon} /> Perfil
                 </DropdownMenuItem>
+                <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                        <HugeiconsIcon icon={PaintBrush01Icon} /> Tema
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                        <DropdownMenuRadioGroup value={theme ?? "system"} onValueChange={setTheme}>
+                            <DropdownMenuRadioItem value="system"><HugeiconsIcon icon={LaptopSettingsIcon} /> Sistema</DropdownMenuRadioItem>
+                            <DropdownMenuRadioItem value="light"><HugeiconsIcon icon={Sun02Icon} /> Claro</DropdownMenuRadioItem>
+                            <DropdownMenuRadioItem value="dark"><HugeiconsIcon icon={Moon02Icon} /> Escuro</DropdownMenuRadioItem>
+                        </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                </DropdownMenuSub>
                 <DropdownMenuItem>
                     <HugeiconsIcon icon={MoneySendSquareIcon} /> Assinatura
                 </DropdownMenuItem>

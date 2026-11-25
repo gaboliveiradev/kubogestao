@@ -1,26 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-    Tabs,
-    TabsList,
-    TabsTrigger,
-} from "@/components/ui/tabs"
+import { Tabs } from "@/components/ui/tabs";
+import { ModalTabsList, ModalTabsTrigger } from "@/components/form/ModalTabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AttachmentIcon, Contact01Icon, MapsLocation01Icon } from "@hugeicons/core-free-icons";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 import { TabProps } from "@/types/tabs-props";
 import AddressDataTab from "./tabs/AddressDataTab";
 import InfoContactTab from "./tabs/InfoContactTab";
 import DocumentsTab from "./tabs/DocumentsTab";
+import type { Lookup } from "../clients-form-modal";
 
 type TabValue = "address" | "contact" | "docs";
 
+const ADDRESS_FIELDS = ["zipcode", "address", "number", "neighborhood", "city", "state"];
+const CONTACT_FIELDS = ["customer_email", "billing_email"];
+
 type Props = TabProps & {
-    setLoader: (loader: { state: boolean; message: string }) => void;
-    setValues: Dispatch<SetStateAction<Record<string, any>>>;
+    lookup: Lookup;
+    onCepBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+    /** incrementa a cada submit inválido, para abrir a aba que contém o primeiro erro */
+    submitAttempt: number;
 };
 
-export default function ClientTabs({ values, errors, handleChange, setValues, setLoader }: Props) {
+export default function ClientTabs({ values, errors, handleChange, lookup, onCepBlur, submitAttempt }: Props) {
     const [activeTab, setActiveTab] = useState<TabValue>("address");
+
+    useEffect(() => {
+        if (!submitAttempt) return;
+
+        if (ADDRESS_FIELDS.some((f) => errors[f])) setActiveTab("address");
+        else if (CONTACT_FIELDS.some((f) => errors[f])) setActiveTab("contact");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submitAttempt]);
 
     function handleTabChange(value: string) {
         if (value === "address" || value === "contact" || value === "docs") {
@@ -30,22 +41,22 @@ export default function ClientTabs({ values, errors, handleChange, setValues, se
 
     return (
         <div className="lg:col-span-12 col-span-12 w-full py-2">
-            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full mb-6">
-                <div className="w-full border">
-                    <TabsList className="inline-flex px-0 bg-transparent">
-                        <TabsTrigger value="address">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full mb-4">
+                <div className="w-full">
+                    <ModalTabsList>
+                        <ModalTabsTrigger value="address">
                             <HugeiconsIcon icon={MapsLocation01Icon} />
                             Dados de Endereço
-                        </TabsTrigger>
-                        <TabsTrigger value="contact">
+                        </ModalTabsTrigger>
+                        <ModalTabsTrigger value="contact">
                             <HugeiconsIcon icon={Contact01Icon} />
                             Informações de Contato
-                        </TabsTrigger>
-                        <TabsTrigger value="docs">
+                        </ModalTabsTrigger>
+                        <ModalTabsTrigger value="docs">
                             <HugeiconsIcon icon={AttachmentIcon} />
                             Documentos
-                        </TabsTrigger>
-                    </TabsList>
+                        </ModalTabsTrigger>
+                    </ModalTabsList>
                 </div>
             </Tabs>
 
@@ -54,8 +65,8 @@ export default function ClientTabs({ values, errors, handleChange, setValues, se
                     values={values}
                     errors={errors}
                     handleChange={handleChange}
-                    setLoader={setLoader}
-                    setValues={setValues}
+                    lookup={lookup}
+                    onCepBlur={onCepBlur}
                 />
             </div>
 

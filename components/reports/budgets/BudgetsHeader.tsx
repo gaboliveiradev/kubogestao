@@ -12,7 +12,7 @@ export function budgetHeader(logoBase64: string) {
       <!-- Left -->
       <div style="width: 320px !important;.">
         <img 
-          src=${logoBase64}
+          src="${logoBase64}"
           alt="Modelação Império"
           style="width: 160px; display: block;"
         />

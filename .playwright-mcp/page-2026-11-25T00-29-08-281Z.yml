@@ -1,0 +1,295 @@
+- generic [active] [ref=e1]:
+  - region "Notifications alt+T"
+  - main [ref=e2]:
+    - navigation [ref=e5]:
+      - link [ref=e6] [cursor=pointer]:
+        - /url: "#"
+        - img "KuboGestao" [ref=e7]
+      - generic [ref=e8]:
+        - link "Funcionalidades" [ref=e9] [cursor=pointer]:
+          - /url: "#funcionalidades"
+        - link "Benefícios" [ref=e10] [cursor=pointer]:
+          - /url: "#beneficios"
+        - link "Como funciona" [ref=e11] [cursor=pointer]:
+          - /url: "#como-funciona"
+        - link "Planos" [ref=e12] [cursor=pointer]:
+          - /url: "#planos"
+        - link "Contato" [ref=e13] [cursor=pointer]:
+          - /url: "#contato"
+      - generic [ref=e14]:
+        - button [ref=e15] [cursor=pointer]:
+          - link "Entrar" [ref=e16]:
+            - /url: /login
+        - button "Começar agora" [ref=e17] [cursor=pointer]
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]: Plataforma completa para sua gestão
+        - heading "Gestão inteligente de clientes e orçamentos em um só lugar" [level=1] [ref=e29]
+        - paragraph [ref=e30]: Controle seus clientes, crie orçamentos em PDF, envie e-mails e gerencie suas cobranças com facilidade.
+        - generic [ref=e31]:
+          - button "Começar agora" [ref=e32]
+          - button "Acessar plataforma" [ref=e33]
+        - generic [ref=e34]:
+          - generic [ref=e35]: Sem taxa de adesão
+          - generic [ref=e39]: Acesso vitalício
+          - generic [ref=e43]: Suporte dedicado
+      - generic [ref=e48]:
+        - img "KuboGestao Dashboard" [ref=e49]
+        - generic [ref=e55]:
+          - paragraph [ref=e56]: Orçamentos enviados
+          - paragraph [ref=e57]: "+2.350"
+        - generic [ref=e63]:
+          - paragraph [ref=e64]: Receita recuperada
+          - paragraph [ref=e65]: R$ 145K
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]: Funcionalidades
+        - heading "Tudo que você precisa para gerenciar seu negócio" [level=2] [ref=e73]
+        - paragraph [ref=e74]: Ferramentas poderosas e intuitivas para simplificar sua rotina e aumentar sua produtividade.
+      - generic [ref=e75]:
+        - generic [ref=e78]:
+          - heading "Geração de Orçamentos em PDF" [level=3] [ref=e82]
+          - paragraph [ref=e83]: Crie orçamentos profissionais em segundos e envie diretamente para seus clientes em formato PDF.
+        - generic [ref=e86]:
+          - heading "Controle de Clientes" [level=3] [ref=e95]
+          - paragraph [ref=e96]: Gerencie todos os seus clientes em um só lugar, com histórico completo e informações organizadas.
+        - generic [ref=e99]:
+          - heading "Gestão de Cobranças" [level=3] [ref=e103]
+          - paragraph [ref=e104]: Acompanhe pagamentos, envie lembretes automáticos e nunca mais perca uma cobrança.
+        - generic [ref=e107]:
+          - heading "Disparo de E-mails Automáticos" [level=3] [ref=e112]
+          - paragraph [ref=e113]: Automatize a comunicação com seus clientes através de e-mails personalizados.
+        - generic [ref=e116]:
+          - heading "Controle Financeiro Simplificado" [level=3] [ref=e121]
+          - paragraph [ref=e122]: Visualize suas finanças de forma clara com relatórios e gráficos intuitivos.
+        - generic [ref=e125]:
+          - heading "Segurança Total" [level=3] [ref=e129]
+          - paragraph [ref=e130]: Seus dados protegidos com criptografia de ponta e backups automáticos.
+    - generic [ref=e133]:
+      - generic [ref=e134]:
+        - generic [ref=e135]: Benefícios
+        - heading "Por que escolher o KuboGestao?" [level=2] [ref=e136]
+        - paragraph [ref=e137]: Uma plataforma pensada para simplificar sua gestão e impulsionar seus resultados. Descubra como podemos ajudar seu negócio a crescer.
+        - generic [ref=e138]:
+          - generic [ref=e143]:
+            - heading "Mais Organização" [level=4] [ref=e144]
+            - paragraph [ref=e145]: Centralize todas as informações dos seus clientes e projetos em um único lugar acessível.
+          - generic [ref=e150]:
+            - heading "Economia de Tempo" [level=4] [ref=e151]
+            - paragraph [ref=e152]: Automatize tarefas repetitivas e foque no que realmente importa para o seu negócio.
+          - generic [ref=e157]:
+            - heading "Aparência Profissional" [level=4] [ref=e158]
+            - paragraph [ref=e159]: Impressione seus clientes com orçamentos elegantes e comunicações bem elaboradas.
+          - generic [ref=e164]:
+            - heading "Centralização das Informações" [level=4] [ref=e165]
+            - paragraph [ref=e166]: Acesse dados de qualquer lugar, a qualquer momento, com total segurança.
+          - generic [ref=e171]:
+            - heading "Melhor Controle Financeiro" [level=4] [ref=e172]
+            - paragraph [ref=e173]: Acompanhe receitas, despesas e fluxo de caixa com dashboards intuitivos.
+      - generic [ref=e177]:
+        - generic [ref=e178]:
+          - generic [ref=e179]: 98%
+          - paragraph [ref=e180]: Taxa de satisfação dos clientes
+        - generic [ref=e181]:
+          - generic [ref=e182]: 50%
+          - paragraph [ref=e183]: Redução no tempo de gestão
+        - generic [ref=e184]:
+          - generic [ref=e185]: +5K
+          - paragraph [ref=e186]: Empresas confiam em nós
+        - generic [ref=e187]:
+          - generic [ref=e188]: 24/7
+          - paragraph [ref=e189]: Suporte disponível sempre
+    - generic [ref=e193]:
+      - generic [ref=e194]:
+        - generic [ref=e195]: Transformação
+        - heading "Veja a diferença na sua rotina" [level=2] [ref=e196]
+        - paragraph [ref=e197]: Compare como era antes e como será depois de usar o KuboGestao
+      - generic [ref=e198]:
+        - generic [ref=e200]:
+          - generic [ref=e205]:
+            - heading "Antes" [level=3] [ref=e206]
+            - paragraph [ref=e207]: Sem o KuboGestao
+          - list [ref=e208]:
+            - listitem [ref=e209]:
+              - paragraph [ref=e214]: Orçamentos feitos no Word ou Excel
+            - listitem [ref=e217]:
+              - paragraph [ref=e227]: Clientes anotados em cadernos ou planilhas
+            - listitem [ref=e230]:
+              - paragraph [ref=e236]: Horas perdidas organizando informações
+            - listitem [ref=e239]:
+              - paragraph [ref=e244]: Cobranças esquecidas e dinheiro perdido
+            - listitem [ref=e247]:
+              - paragraph [ref=e253]: E-mails enviados manualmente um por um
+        - generic [ref=e257]:
+          - generic [ref=e262]:
+            - heading "Depois" [level=3] [ref=e263]
+            - paragraph [ref=e264]: Com o KuboGestao
+          - list [ref=e265]:
+            - listitem [ref=e266]:
+              - paragraph [ref=e271]: PDFs profissionais gerados em segundos
+            - listitem [ref=e274]:
+              - paragraph [ref=e284]: Base de clientes organizada e acessível
+            - listitem [ref=e287]:
+              - paragraph [ref=e293]: Tempo livre para focar no que importa
+            - listitem [ref=e296]:
+              - paragraph [ref=e302]: Cobranças automáticas e receita recuperada
+            - listitem [ref=e305]:
+              - paragraph [ref=e310]: Tudo integrado em uma única plataforma
+      - generic [ref=e314]:
+        - generic [ref=e315]:
+          - paragraph [ref=e316]: 70%
+          - paragraph [ref=e317]: Menos tempo gasto
+        - generic [ref=e318]:
+          - paragraph [ref=e319]: 3x
+          - paragraph [ref=e320]: Mais organização
+        - generic [ref=e321]:
+          - paragraph [ref=e322]: 100%
+          - paragraph [ref=e323]: Controle financeiro
+        - generic [ref=e324]:
+          - paragraph [ref=e325]: ∞
+          - paragraph [ref=e326]: Tranquilidade
+    - generic [ref=e328]:
+      - generic [ref=e329]:
+        - generic [ref=e330]: Como funciona
+        - heading "Comece a usar em 4 passos simples" [level=2] [ref=e331]
+        - paragraph [ref=e332]: Processo rápido e intuitivo para você começar a gerenciar seu negócio de forma profissional.
+      - generic [ref=e335]:
+        - generic [ref=e337]:
+          - generic [ref=e338]: "01"
+          - heading "Crie sua conta" [level=3] [ref=e345]
+          - paragraph [ref=e346]: Cadastre-se em menos de 2 minutos. Sem burocracia, sem complicação.
+        - generic [ref=e348]:
+          - generic [ref=e349]: "02"
+          - heading "Cadastre seus clientes" [level=3] [ref=e359]
+          - paragraph [ref=e360]: Importe ou adicione manualmente os dados dos seus clientes na plataforma.
+        - generic [ref=e362]:
+          - generic [ref=e363]: "03"
+          - heading "Gere e envie orçamentos" [level=3] [ref=e368]
+          - paragraph [ref=e369]: Crie orçamentos profissionais em PDF e envie diretamente por e-mail.
+        - generic [ref=e371]:
+          - generic [ref=e372]: "04"
+          - heading "Controle cobranças e finanças" [level=3] [ref=e379]
+          - paragraph [ref=e380]: Acompanhe pagamentos, gerencie cobranças e tenha visão completa das suas finanças.
+    - generic [ref=e384]:
+      - generic [ref=e385]:
+        - generic [ref=e386]: Planos
+        - heading "Um único investimento, acesso vitalício" [level=2] [ref=e387]
+        - paragraph [ref=e388]: Sem mensalidades, sem taxas escondidas. Pague uma vez e use para sempre.
+      - generic [ref=e390]:
+        - generic [ref=e391]: Oferta Especial
+        - generic [ref=e397]:
+          - generic [ref=e398]:
+            - heading "Plano Vitalício" [level=3] [ref=e402]
+            - generic [ref=e403]: R$ 597,90
+            - generic [ref=e405]: R$ 297,90
+            - paragraph [ref=e407]: Pagamento único • Acesso vitalício
+          - generic [ref=e408]:
+            - generic [ref=e409]: Clientes ilimitados
+            - generic [ref=e414]: Orçamentos ilimitados em PDF
+            - generic [ref=e419]: Gestão de cobranças
+            - generic [ref=e424]: Disparo de e-mails automáticos
+            - generic [ref=e429]: Relatórios financeiros
+            - generic [ref=e434]: Suporte prioritário
+            - generic [ref=e439]: Atualizações gratuitas para sempre
+            - generic [ref=e444]: Backup automático dos dados
+          - button "Garantir meu acesso agora" [ref=e449]
+          - generic [ref=e450]: Garantia de 7 dias ou seu dinheiro de volta
+      - generic [ref=e454]:
+        - generic [ref=e455]: Pagamento 100% seguro
+        - generic [ref=e459]: PIX, Boleto ou Cartão
+        - generic [ref=e463]: Acesso imediato
+    - generic [ref=e469]:
+      - generic [ref=e470]:
+        - generic [ref=e471]: Depoimentos
+        - heading "O que nossos clientes dizem" [level=2] [ref=e472]
+        - paragraph [ref=e473]: Milhares de profissionais já transformaram sua gestão com o KuboGestao.
+      - generic [ref=e474]:
+        - generic [ref=e475]:
+          - paragraph [ref=e492]: O KuboGestao transformou a forma como gerencio meus orçamentos. Antes perdia horas fazendo manualmente, agora são minutos!
+          - generic [ref=e493]:
+            - generic [ref=e494]: CS
+            - generic [ref=e495]:
+              - heading "Carlos Silva" [level=4] [ref=e496]
+              - paragraph [ref=e497]: Engenheiro Civil
+        - generic [ref=e498]:
+          - paragraph [ref=e515]: Plataforma incrível! Meus clientes elogiam a aparência profissional dos orçamentos. Recomendo demais!
+          - generic [ref=e516]:
+            - generic [ref=e517]: MS
+            - generic [ref=e518]:
+              - heading "Marina Santos" [level=4] [ref=e519]
+              - paragraph [ref=e520]: Arquiteta
+        - generic [ref=e521]:
+          - paragraph [ref=e538]: Finalmente consegui organizar minhas finanças e cobranças. O controle de clientes é sensacional.
+          - generic [ref=e539]:
+            - generic [ref=e540]: RO
+            - generic [ref=e541]:
+              - heading "Roberto Oliveira" [level=4] [ref=e542]
+              - paragraph [ref=e543]: Prestador de Serviços
+    - generic [ref=e552]:
+      - heading "Comece agora a organizar seus clientes e orçamentos" [level=2] [ref=e553]
+      - paragraph [ref=e554]: Junte-se a milhares de profissionais que já transformaram sua gestão com o KuboGestao. Acesso vitalício por apenas R$ 297,90.
+      - button "Assinar Agora" [ref=e556] [cursor=pointer]
+      - paragraph [ref=e557]: Garantia de 7 dias • Pagamento seguro • Acesso imediato
+    - generic [ref=e559]:
+      - generic [ref=e560]:
+        - generic [ref=e561]:
+          - img "KuboGestao" [ref=e562]
+          - paragraph [ref=e563]: Plataforma completa para gestão de clientes e orçamentos. Simplifique seu negócio e aumente sua produtividade.
+          - generic [ref=e564]:
+            - link "Instagram" [ref=e565] [cursor=pointer]:
+              - /url: "#"
+            - link "LinkedIn" [ref=e568] [cursor=pointer]:
+              - /url: "#"
+            - link "YouTube" [ref=e571] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=e574]:
+          - heading "Produto" [level=4] [ref=e575]
+          - list [ref=e576]:
+            - listitem [ref=e577]:
+              - link "Funcionalidades" [ref=e578] [cursor=pointer]:
+                - /url: "#funcionalidades"
+            - listitem [ref=e579]:
+              - link "Benefícios" [ref=e580] [cursor=pointer]:
+                - /url: "#beneficios"
+            - listitem [ref=e581]:
+              - link "Como funciona" [ref=e582] [cursor=pointer]:
+                - /url: "#como-funciona"
+            - listitem [ref=e583]:
+              - link "Planos" [ref=e584] [cursor=pointer]:
+                - /url: "#planos"
+        - generic [ref=e585]:
+          - heading "Suporte" [level=4] [ref=e586]
+          - list [ref=e587]:
+            - listitem [ref=e588]:
+              - link "Central de ajuda" [ref=e589] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e590]:
+              - link "Contato" [ref=e591] [cursor=pointer]:
+                - /url: "#contato"
+            - listitem [ref=e592]:
+              - link "FAQ" [ref=e593] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e594]:
+              - link "Status" [ref=e595] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e596]:
+          - heading "Legal" [level=4] [ref=e597]
+          - list [ref=e598]:
+            - listitem [ref=e599]:
+              - link "Termos de uso" [ref=e600] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e601]:
+              - link "Política de privacidade" [ref=e602] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e603]:
+              - link "Cookies" [ref=e604] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e606]:
+        - paragraph [ref=e607]: © 2026 KuboGestao. Todos os direitos reservados.
+        - generic [ref=e608]:
+          - link "Termos" [ref=e609] [cursor=pointer]:
+            - /url: "#"
+          - link "Privacidade" [ref=e610] [cursor=pointer]:
+            - /url: "#"
+          - link "Cookies" [ref=e611] [cursor=pointer]:
+            - /url: "#"

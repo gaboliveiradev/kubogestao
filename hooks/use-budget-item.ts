@@ -21,23 +21,54 @@ export function useBudgetItems() {
   const [items, setItems] = useState<BudgetItem[]>([]);
   const [expandedItemId, setExpandedItemId] = useState<string | null>(null);
 
-  function handleAddItem(itemForm: BudgetItemForm) {
-    if (!itemForm.name) {
+  function validateItemForm(itemForm: BudgetItemForm) {
+    if (!itemForm.name.trim()) {
       showErrorSonner('Campo nome item é obrigatório.');
-      return;
+      return false;
     }
 
-    const parsedValue = parseCurrency(itemForm.value) ?? 0;
+    if (!Number(itemForm.quantity) || Number(itemForm.quantity) < 1) {
+      showErrorSonner('A quantidade deve ser no mínimo 1.');
+      return false;
+    }
+
+    return true;
+  }
+
+  /** Retorna true quando o item foi adicionado. */
+  function handleAddItem(itemForm: BudgetItemForm): boolean {
+    if (!validateItemForm(itemForm)) return false;
 
     const newItem: BudgetItem = {
       id: crypto.randomUUID(),
-      name: itemForm.name,
+      name: itemForm.name.trim(),
       quantity: Number(itemForm.quantity),
-      value: parsedValue,
+      value: parseCurrency(itemForm.value) ?? 0,
       description: itemForm.description,
     };
 
     setItems(prev => [...prev, newItem]);
+    return true;
+  }
+
+  /** Retorna true quando o item foi atualizado. */
+  function handleUpdateItem(id: string, itemForm: BudgetItemForm): boolean {
+    if (!validateItemForm(itemForm)) return false;
+
+    setItems(prev =>
+      prev.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              name: itemForm.name.trim(),
+              quantity: Number(itemForm.quantity),
+              value: parseCurrency(itemForm.value) ?? 0,
+              description: itemForm.description,
+            }
+          : item
+      )
+    );
+    return true;
   }
 
   function handleRemoveItem(id: string) {
@@ -57,6 +88,7 @@ export function useBudgetItems() {
     items,
     setItems,
     handleAddItem,
+    handleUpdateItem,
     handleRemoveItem,
     toggleItem,
     expandedItemId,

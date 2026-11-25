@@ -1,11 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEffect, type ReactNode } from 'react'
+import { useEditor, EditorContent, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Button } from '@/components/ui/button'
 
-export function RichTextEditor({ value, onChange }: any) {
+type RichTextEditorProps = {
+    value?: string
+    onChange: (html: string) => void
+    /** Conteúdo extra na toolbar (ex.: botões de inserção de chaves) */
+    renderToolbarExtra?: (editor: Editor) => ReactNode
+    heightClassName?: string
+}
+
+export function RichTextEditor({ value, onChange, renderToolbarExtra, heightClassName = 'h-60' }: RichTextEditorProps) {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -26,6 +34,15 @@ export function RichTextEditor({ value, onChange }: any) {
             onChange(editor.getHTML())
         },
     })
+
+    // Sincroniza alterações externas (ex.: observação padrão aplicada depois da montagem)
+    useEffect(() => {
+        if (!editor) return
+        const next = value ?? ''
+        if (next !== editor.getHTML() && !(next === '' && editor.isEmpty)) {
+            editor.commands.setContent(next, { emitUpdate: false })
+        }
+    }, [value, editor])
 
     if (!editor) return null
 
@@ -60,10 +77,12 @@ export function RichTextEditor({ value, onChange }: any) {
                 >
                     <s>S</s>
                 </Button>
+
+                {renderToolbarExtra?.(editor)}
             </div>
 
             {/* Editor */}
-            <div className="p-2 h-60 overflow-y-auto">
+            <div className={`p-2 ${heightClassName} overflow-y-auto`}>
                 <EditorContent
                     editor={editor}
                     className="h-full [&_.ProseMirror]:h-full [&_.ProseMirror]:outline-none"

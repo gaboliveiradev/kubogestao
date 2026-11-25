@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { DashboardSquare02Icon, FolderLibraryIcon, Settings01Icon, UserGroup03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon, HugeiconsIconProps } from "@hugeicons/react";
 import DropdownMenuProfile from "@/components/layout/DropdownProfile";
-import SheetSystemConfig from "./SheetSystemConfig";
 import Image from "next/image";
 
 export type SidebarItemProps = {
@@ -33,9 +32,7 @@ export function Sidebar() {
                         <SidebarDesktopItem Icon={UserGroup03Icon} title='Clientes' path='/app/clients' />
                         <SidebarDesktopItem Icon={FolderLibraryIcon} title='Orçamentos' path='/app/budgets' />
                         <Separator />
-                        <SheetSystemConfig>
-                            <SidebarDesktopItem Icon={Settings01Icon} title='Configurações' path='/' />
-                        </SheetSystemConfig>
+                        <SidebarDesktopItem Icon={Settings01Icon} title='Configurações' path='/app/settings' />
                     </TooltipProvider>
                 </nav>
 

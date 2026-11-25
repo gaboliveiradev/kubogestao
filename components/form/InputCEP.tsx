@@ -13,6 +13,7 @@ interface InputCepProps {
   value?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  invalid?: boolean
 }
 
 export function InputCEP({
@@ -23,6 +24,7 @@ export function InputCEP({
   value,
   onChange,
   onBlur,
+  invalid,
 }: InputCepProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const maskRef = useRef<InputMask | null>(null)
@@ -73,6 +75,7 @@ export function InputCEP({
       value={value || ""}
       onChange={() => { }}
       onBlur={onBlur}
+      aria-invalid={invalid || undefined}
     />
   )
 }

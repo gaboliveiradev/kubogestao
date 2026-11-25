@@ -15,6 +15,9 @@ export type CompanyDataFormResponse = {
         city?: string;
         state?: string;
         zipcode?: string;
+        responsible_name?: string;
+        customer_email?: string;
+        customer_phone?: string;
     };
 };
 
@@ -45,10 +48,14 @@ export async function getCompanyDataByCNPJ(rawCNPJ: string): Promise<CompanyData
             city: company?.data?.municipio,
             state: company?.data?.uf,
             corporate_name: company?.data?.razao_social,
-            fantasy_name: company?.data?.nome_fantasia,
+            // sem nome fantasia, usa a razão social
+            fantasy_name: company?.data?.nome_fantasia || company?.data?.razao_social,
             document: company?.data?.cnpj,
             number: company?.data?.numero,  
-            zipcode: company?.data?.cep,    
+            zipcode: company?.data?.cep,
+            responsible_name: company?.data?.responsavel,
+            customer_email: company?.data?.email,
+            customer_phone: company?.data?.telefone,
         },
     };
 }

@@ -1,13 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import jwt from "jsonwebtoken";
 import { budgetsService } from "@/services/firebase/budgets/budgets.service";
-import puppeteer from "puppeteer";
+import { launchPdfBrowser } from "@/lib/pdf-browser";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { budgetHeader } from "@/components/reports/budgets/BudgetsHeader";
 import { budgetFooter } from "@/components/reports/budgets/BudgetsFooter";
 import { NextResponse } from "next/server";
 import { BudgetPDFContent } from "@/components/reports/budgets/BudgetPDFContent";
 import { budgetItemsService } from "@/services/firebase/budgets/budget-items.service";
-import imageURLToBase64 from "@/utils/functions/image";
+
+// Gerar PDF com Chromium pode demorar (cold start na Vercel)
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
+// Logo lido do disco (sem depender de rede/serviços externos na hora de gerar o PDF)
+async function loadLogoBase64(): Promise<string> {
+  try {
+    const file = await readFile(path.join(process.cwd(), "assets", "pdf", "logo-empresa.png"));
+    return `data:image/png;base64,${file.toString("base64")}`;
+  } catch (error) {
+    console.error("Logo do PDF não encontrado:", error);
+    return "";
+  }
+}
 
 export async function GET(
   request: Request,
@@ -43,8 +59,7 @@ export async function GET(
     return NextResponse.json({ error: "Itens do orçamento não encontrado" }, { status: 404 });
   }
 
-  const logoUrl = "https://i.imgur.com/XonZB5w.png";
-  const logoBase64 = await imageURLToBase64(logoUrl);
+  const logoBase64 = await loadLogoBase64();
 
   const html = `
     <html>
@@ -54,31 +69,36 @@ export async function GET(
     </html>
   `;
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox"],
-  });
+  let browser: Awaited<ReturnType<typeof launchPdfBrowser>> | undefined;
 
-  const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: "networkidle0" });
+  try {
+    browser = await launchPdfBrowser();
 
-  const pdf = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    displayHeaderFooter: true,
-    headerTemplate: budgetHeader(logoBase64),
-    footerTemplate: budgetFooter(
-      new Date().toLocaleDateString("pt-BR")
-    ),
-    margin: { top: "18mm", bottom: "28mm", left: "3mm", right: "3mm" },
-  });
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "load" });
 
-  await browser.close();
+    const pdf = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      displayHeaderFooter: true,
+      headerTemplate: budgetHeader(logoBase64),
+      footerTemplate: budgetFooter(
+        new Date().toLocaleDateString("pt-BR")
+      ),
+      margin: { top: "18mm", bottom: "28mm", left: "3mm", right: "3mm" },
+    });
 
-  return new NextResponse(Buffer.from(pdf), {
-    headers: {
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename=OR_${budget.budget_key}.pdf`,
-    },
-  });
+    return new NextResponse(Buffer.from(pdf), {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `inline; filename=OR_${budget.budget_key}.pdf`,
+      },
+    });
+  } catch (error) {
+    console.error("Erro ao gerar PDF do orçamento:", error);
+
+    return NextResponse.json({ error: "Não foi possível gerar o PDF." }, { status: 500 });
+  } finally {
+    await browser?.close();
+  }
 }

@@ -1,24 +1,32 @@
 import FormModal from "@/components/form/FormModal";
 import { RichTextEditor } from "@/components/rich-text-editor/RichTextEditor";
+import { ModalFooter, ModalFooterButton } from "@/components/form/ModalFooter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BudgetItemForm } from "@/hooks/use-budget-item";
+import { useModalContext } from "@/context/modal-context";
+import { BudgetItem, BudgetItemForm } from "@/hooks/use-budget-item";
 import { formatCurrency } from "@/utils/functions/string";
-import { Add01Icon, MinusSignIcon, PlusSignIcon } from "@hugeicons/core-free-icons";
+import { Add01Icon, CancelSquareIcon, CheckmarkSquare02Icon, MinusSignIcon, PlusSignIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
 type Props = {
-    handleAddItem: (itemForm: BudgetItemForm) => void,
+    /** Quando informado, a modal entra em modo de edição. */
+    item?: BudgetItem,
+    /** Deve retornar true quando salvou com sucesso (a modal então fecha). */
+    onSubmit: (itemForm: BudgetItemForm) => boolean,
 }
 
-export default function AddItemFormModal({ handleAddItem }: Props) {
+export default function AddItemFormModal({ item, onSubmit }: Props) {
+    const { closeModal } = useModalContext();
+    const isEditing = !!item;
+
     const [itemForm, setItemForm] = useState<BudgetItemForm>({
-        name: "",
-        quantity: 1,
-        value: "",
-        description: "",
+        name: item?.name ?? "",
+        quantity: item?.quantity ?? 1,
+        value: item ? formatCurrency(item.value) : "",
+        description: item?.description ?? "",
     });
 
     function handleItemChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -26,37 +34,28 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
         setItemForm(prev => ({ ...prev, [name]: value }));
     }
 
-    function handleChangeObservation(html: string) {
-        setItemForm(prev => ({
-            ...prev,
-            description: html,
-        }));
-    }
-
     function decreaseQuantity() {
-        setItemForm(prev => ({
-            ...prev,
-            quantity: Math.max(1, prev.quantity - 1),
-        }));
+        setItemForm(prev => ({ ...prev, quantity: Math.max(1, Number(prev.quantity) - 1) }));
     }
 
     function increaseQuantity() {
-        setItemForm(prev => ({
-            ...prev,
-            quantity: prev.quantity + 1,
-        }));
+        setItemForm(prev => ({ ...prev, quantity: Number(prev.quantity) + 1 }));
+    }
+
+    function handleSubmit() {
+        if (onSubmit(itemForm)) closeModal();
     }
 
     return (
-        <FormModal title="Adicionar Item" pending={false}>
+        <FormModal
+            title={isEditing ? "Editar Item" : "Adicionar Item"}
+            description={isEditing ? "Altere os dados do item do orçamento." : "Informe os dados do novo item do orçamento."}
+            pending={false}
+        >
             <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-12 lg:col-span-12 space-y-2">
+                <div className="col-span-12 space-y-2">
                     <Label>Nome</Label>
-                    <Input
-                        name="name"
-                        value={itemForm.name}
-                        onChange={handleItemChange}
-                    />
+                    <Input name="name" value={itemForm.name} onChange={handleItemChange} />
                 </div>
 
                 <div className="col-span-6 lg:col-span-4 space-y-2">
@@ -85,30 +84,27 @@ export default function AddItemFormModal({ handleAddItem }: Props) {
                         name="value"
                         inputMode="numeric"
                         value={itemForm.value}
-                        onChange={(e) => {
-                            const rawValue = e.target.value
-                            setItemForm(prev => ({
-                                ...prev,
-                                value: formatCurrency(rawValue),
-                            }))
-                        }}
+                        onChange={(e) => setItemForm(prev => ({ ...prev, value: formatCurrency(e.target.value) }))}
                     />
-
                 </div>
 
                 <div className="col-span-12">
                     <RichTextEditor
                         value={itemForm.description}
-                        onChange={(html: string) => handleChangeObservation(html)}
+                        onChange={(html: string) => setItemForm(prev => ({ ...prev, description: html }))}
                     />
                 </div>
 
-                <div className="col-span-12 flex justify-end items-center">
-                    <Button onClick={() => handleAddItem(itemForm)} className="cursor-pointer">
-                        <HugeiconsIcon icon={Add01Icon} />
-                        Adicionar Item
-                    </Button>
-                </div>
+                <ModalFooter>
+                    <ModalFooterButton type="button" variant="outline" onClick={closeModal}>
+                        <HugeiconsIcon icon={CancelSquareIcon} />
+                        Cancelar
+                    </ModalFooterButton>
+                    <ModalFooterButton type="button" onClick={handleSubmit}>
+                        <HugeiconsIcon icon={isEditing ? CheckmarkSquare02Icon : Add01Icon} />
+                        {isEditing ? "Salvar Alterações" : "Adicionar Item"}
+                    </ModalFooterButton>
+                </ModalFooter>
             </div>
         </FormModal>
     )

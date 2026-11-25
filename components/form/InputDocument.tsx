@@ -14,6 +14,7 @@ interface InputDocumentProps {
   value?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  invalid?: boolean
 }
 
 export function InputDocument({
@@ -24,6 +25,7 @@ export function InputDocument({
   value,
   onChange,
   onBlur,
+  invalid,
 }: InputDocumentProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const maskRef = useRef<InputMask | null>(null)
@@ -90,6 +92,7 @@ export function InputDocument({
       value={value || ""}
       onChange={() => { }}
       onBlur={onBlur}
+      aria-invalid={invalid || undefined}
     />
   )
 }

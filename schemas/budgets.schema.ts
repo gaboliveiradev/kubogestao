@@ -18,7 +18,7 @@ export const budgetSchema = z.object({
 
   observations: z
     .string()
-    .max(1000, "Observações podem ter no máximo 1000 caracteres")
+    .max(10000, "Observações podem ter no máximo 10.000 caracteres")
     .optional()
     .or(z.literal("")),
 

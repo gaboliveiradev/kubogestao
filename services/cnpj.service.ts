@@ -13,8 +13,15 @@ export type CNPJResponseAPI = {
         cidade: {
             nome: string
         },
+        email?: string | null,
+        ddd1?: string | null,
+        telefone1?: string | null,
     },
     razao_social: string,
+    socios?: {
+        nome: string,
+        qualificacao_socio?: { descricao?: string } | null,
+    }[],
 }
 
 export type CNPJResponse = {
@@ -27,6 +34,9 @@ export type CNPJResponse = {
     uf: string,
     municipio: string,
     cep: string,
+    responsavel: string,
+    email: string,
+    telefone: string,
 }
 
 export type CNPJServiceResponse = {
@@ -65,6 +75,15 @@ class CNPJService {
 
         const logradouro = `${data.estabelecimento.tipo_logradouro} ${data.estabelecimento.logradouro}`.trim();
 
+        // responsável: sócio-administrador; se não houver, o primeiro sócio
+        const socios = data?.socios ?? [];
+        const administrador = socios.find((socio) =>
+            socio.qualificacao_socio?.descricao?.toLowerCase().includes('administrador')
+        );
+        const responsavel = (administrador ?? socios[0])?.nome ?? '';
+
+        const telefone = `${data?.estabelecimento?.ddd1 ?? ''}${data?.estabelecimento?.telefone1 ?? ''}`;
+
         return {
             success: true,
             message: 'CNPJ encontrado com sucesso.',
@@ -78,6 +97,9 @@ class CNPJService {
                 municipio: data?.estabelecimento?.cidade?.nome ?? '',
                 uf: data?.estabelecimento?.estado?.sigla ?? '',
                 cep: data?.estabelecimento?.cep ?? '',
+                responsavel,
+                email: data?.estabelecimento?.email?.toLowerCase() ?? '',
+                telefone,
             },
         }
     }

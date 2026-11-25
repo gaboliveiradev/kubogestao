@@ -15,6 +15,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                         type='email'
                         value={values.customer_email || ""}
                         onChange={handleChange}
+                        aria-invalid={!!errors.customer_email}
                     />
                     <InputError text={errors.customer_email} />
                 </div>
@@ -27,6 +28,7 @@ export default function InfoContactTab({ values, errors, handleChange }: TabProp
                         type='email'
                         value={values.billing_email || ""}
                         onChange={handleChange}
+                        aria-invalid={!!errors.billing_email}
                     />
                     <InputError text={errors.billing_email} />
                 </div>

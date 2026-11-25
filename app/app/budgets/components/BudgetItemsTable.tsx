@@ -19,7 +19,7 @@ import {
 import { formatCurrency } from "@/utils/functions/string"
 import { Button } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Add01Icon, ArrowRight01Icon, Delete02Icon, FolderRemoveIcon } from "@hugeicons/core-free-icons"
+import { Add01Icon, ArrowRight01Icon, Delete02Icon, FolderRemoveIcon, PencilEdit02Icon } from "@hugeicons/core-free-icons"
 import { BudgetItem, BudgetItemForm } from "@/hooks/use-budget-item"
 import { useModalContext } from "@/context/modal-context"
 import AddItemFormModal from "./AddItemFormModal";
@@ -29,26 +29,35 @@ export type BudgetItemsTableProps = {
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
     expandedItemId: string | null,
-    handleAddItem: (itemForm: BudgetItemForm) => void,
+    handleAddItem: (itemForm: BudgetItemForm) => boolean,
+    handleUpdateItem: (id: string, itemForm: BudgetItemForm) => boolean,
 }
 
-export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId, handleAddItem }: BudgetItemsTableProps) {
+export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, expandedItemId, handleAddItem, handleUpdateItem }: BudgetItemsTableProps) {
     const { openModal } = useModalContext();
 
     function handleClickOpenModalAddItem() {
         openModal(
-            <AddItemFormModal
-                handleAddItem={handleAddItem}
-            />
+            <AddItemFormModal onSubmit={handleAddItem} />,
+            undefined,
+            { preventOutsideClose: true }
+        );
+    }
+
+    function handleClickOpenModalEditItem(item: BudgetItem) {
+        openModal(
+            <AddItemFormModal item={item} onSubmit={(form) => handleUpdateItem(item.id, form)} />,
+            undefined,
+            { preventOutsideClose: true }
         );
     }
 
     return (
-        <Table className="border">
+        <Table className="rounded-xl border">
             <TableHeader className="sticky top-0 bg-background z-10">
                 <TableRow>
                     <TableHead className="text-start px-2 w-3">
-                        <Button type="button" onClick={handleClickOpenModalAddItem} className="cursor-pointer" variant="default" size="icon-sm">
+                        <Button type="button" onClick={handleClickOpenModalAddItem} className="cursor-pointer rounded-full" variant="default" size="icon-sm">
                             <HugeiconsIcon icon={Add01Icon} />
                         </Button>
                     </TableHead>
@@ -63,7 +72,7 @@ export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, 
             <TableBody>
                 {items.length === 0 && (
                     <TableRow>
-                        <TableCell colSpan={5}>
+                        <TableCell colSpan={6}>
                             <div>
                                 <Empty>
                                     <EmptyHeader>
@@ -105,6 +114,16 @@ export default function BudgetItemsTable({ items, handleRemoveItem, toggleItem, 
                                     className="p-2 text-right"
                                     onClick={(e) => e.stopPropagation()}
                                 >
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        className="cursor-pointer"
+                                        onClick={() => handleClickOpenModalEditItem(item)}
+                                    >
+                                        <HugeiconsIcon icon={PencilEdit02Icon} />
+                                        <span className="sr-only">Editar item</span>
+                                    </Button>
                                     <Button
                                         type="button"
                                         variant="ghost"

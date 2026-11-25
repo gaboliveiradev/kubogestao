@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const REQUIRED = "Este campo é obrigatório.";
+
 const onlyNumbers = (value: string) => value.replace(/\D/g, "");
 
 const cpfCnpjRegex = /^(\d{11}|\d{14})$/;
@@ -12,7 +14,7 @@ export const clientSchema = z.object({
   // ===== Dados principais =====
   document: z
     .string()
-    .min(1, "Documento é obrigatório.")
+    .min(1, REQUIRED)
     .transform(onlyNumbers)
     .refine(value => cpfCnpjRegex.test(value), {
       message: "Informe um CPF ou CNPJ válido.",
@@ -20,7 +22,7 @@ export const clientSchema = z.object({
 
   corporate_name: z
     .string()
-    .min(1, "Razão social é obrigatória.")
+    .min(1, REQUIRED)
     .min(3, "Razão social deve ter no mínimo 3 caracteres."),
 
   fantasy_name: z.string().optional(),
@@ -29,12 +31,12 @@ export const clientSchema = z.object({
 
   responsible_name: z.string().optional(),
 
-  budget_key: z.string().min(1, 'Chave de orçamento é obrigatório.').min(3, 'Chave de orçamento deve ter no mínimo 3 caracteres.'),
+  budget_key: z.string().min(1, REQUIRED).min(3, 'Chave de orçamento deve ter no mínimo 3 caracteres.'),
 
   // ===== Endereço =====
   zipcode: z
     .string()
-    .min(1, "CEP é obrigatório.")
+    .min(1, REQUIRED)
     .transform(onlyNumbers)
     .refine(value => cepRegex.test(value), {
       message: "CEP inválido.",
@@ -42,38 +44,38 @@ export const clientSchema = z.object({
 
   address: z
     .string()
-    .min(1, "Logradouro é obrigatório.")
+    .min(1, REQUIRED)
     .min(3, "Logradouro inválido."),
 
   number: z
     .string()
-    .min(1, "Número é obrigatório."),
+    .min(1, REQUIRED),
 
   neighborhood: z
     .string()
-    .min(1, "Bairro é obrigatório.")
+    .min(1, REQUIRED)
     .min(2, "Bairro inválido."),
 
   city: z
     .string()
-    .min(1, "Cidade é obrigatória.")
+    .min(1, REQUIRED)
     .min(2, "Cidade inválida."),
 
   state: z
     .string()
-    .min(1, "Estado é obrigatório.")
+    .min(1, REQUIRED)
     .length(2, "Informe a UF com 2 caracteres."),
 
   // ===== Contatos =====
   customer_email: z
     .string()
-    .email("E-mail inválido.")
+    .email("Email inválido.")
     .optional()
     .or(z.literal('')),
 
   billing_email: z
     .string()
-    .email("E-mail inválido.")
+    .email("Email inválido.")
     .optional()
     .or(z.literal('')),
 

@@ -2,7 +2,8 @@ import BudgetItemsTable from "../BudgetItemsTable"
 import { BudgetItem, BudgetItemForm } from "@/hooks/use-budget-item"
 
 type ItemTabProps = {
-    handleAddItem: (itemForm: BudgetItemForm) => void,
+    handleAddItem: (itemForm: BudgetItemForm) => boolean,
+    handleUpdateItem: (id: string, itemForm: BudgetItemForm) => boolean,
     items: BudgetItem[],
     handleRemoveItem: (id: string) => void,
     toggleItem: (id: string) => void,
@@ -11,6 +12,7 @@ type ItemTabProps = {
 
 export default function ItemsTab({
     handleAddItem,
+    handleUpdateItem,
     items,
     handleRemoveItem,
     toggleItem,
@@ -23,6 +25,7 @@ export default function ItemsTab({
             toggleItem={toggleItem}
             expandedItemId={expandedItemId}
             handleAddItem={handleAddItem}
+            handleUpdateItem={handleUpdateItem}
         />
     )
 }

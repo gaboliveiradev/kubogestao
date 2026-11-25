@@ -35,5 +35,40 @@ export function useZodFormState<T extends ZodObject<any>>(schema: T) {
     [schema]
   );
 
-  return { values, errors, handleChange, setValues };
+  // valida o formulário inteiro (usado no submit)
+  const validateAll = useCallback(() => {
+    const normalized: Record<string, any> = {};
+    for (const key of Object.keys(schema.shape)) {
+      const current = values[key];
+      if (key === "id") {
+        if (current) normalized[key] = current;
+        continue;
+      }
+      normalized[key] = current ?? "";
+    }
+
+    const result = schema.safeParse(normalized);
+    const nextErrors: Record<string, string> = {};
+
+    if (!result.success) {
+      for (const issue of result.error.issues) {
+        const key = String(issue.path[0] ?? "");
+        if (key && !nextErrors[key]) nextErrors[key] = issue.message;
+      }
+    }
+
+    setErrors(nextErrors);
+    return { valid: result.success, errors: nextErrors };
+  }, [schema, values]);
+
+  // limpa erros de campos preenchidos automaticamente (CNPJ/CEP)
+  const clearErrors = useCallback((keys: string[]) => {
+    setErrors((prev) => {
+      const next = { ...prev };
+      keys.forEach((k) => delete next[k]);
+      return next;
+    });
+  }, []);
+
+  return { values, errors, handleChange, setValues, validateAll, clearErrors };
 }
