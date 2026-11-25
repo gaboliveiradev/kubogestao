@@ -21,6 +21,22 @@ class BudgetItemsService extends FirestoreBaseService<BudgetItem> {
     return snapshot.docs.map(doc => this.toDTO(doc.id, doc.data() as BudgetItem));
   }
 
+  /** Itens de vários orçamentos (consulta `in` em blocos de 30, limite do Firestore). Sem orderBy = sem índice extra. */
+  async getItemsByBudgetIds(budgetIds: string[]): Promise<BudgetItemDTO[]> {
+    if (budgetIds.length === 0) return [];
+
+    const chunks: string[][] = [];
+    for (let i = 0; i < budgetIds.length; i += 30) chunks.push(budgetIds.slice(i, i + 30));
+
+    const snapshots = await Promise.all(
+      chunks.map((ids) => this.collection().where("budget_id", "in", ids).get())
+    );
+
+    return snapshots.flatMap((snap) =>
+      snap.docs.map((doc) => this.toDTO(doc.id, doc.data() as BudgetItem))
+    );
+  }
+
   async deleteItemsByBudgetId(budgetId: string) {
     const snapshot = await this.collection()
       .where("budget_id", "==", budgetId)
